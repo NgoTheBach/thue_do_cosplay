@@ -3,9 +3,9 @@ import 'package:thue_do_cosplay/components/custom_surfix_icon.dart';
 import 'package:thue_do_cosplay/components/default_button.dart';
 import 'package:thue_do_cosplay/components/form_error.dart';
 import 'package:thue_do_cosplay/constants.dart';
+import 'package:thue_do_cosplay/helper/keyboard.dart';
 import 'package:thue_do_cosplay/screens/home/home_screen.dart';
 import 'package:thue_do_cosplay/size_config.dart';
-
 
 class SignForm extends StatefulWidget {
   @override
@@ -77,15 +77,16 @@ class _SignFormState extends State<SignForm> {
             press: () async {
               // if (_formKey.currentState!.validate()) {
               //   _formKey.currentState!.save();
-                
-              //   KeyboardUtil.hideKeyboard(context);
-               
+
+              // if all are valid then go to success screen
+              KeyboardUtil.hideKeyboard(context);
+
               //   User? user =
               //       await fetchLogin(emailText.text, passwordText.text);
               //   if (user != null) {
               //     saveLogin(user);
               //     removeError(error: 'Sai email hoặc mật khẩu!');
-                   Navigator.pushNamed(context, HomeScreen.routeName);
+              Navigator.pushNamed(context, HomeScreen.routeName);
               //   } else
               //     addError(error: 'Sai email hoặc mật khẩu!');
               // }

@@ -18,17 +18,6 @@ import 'package:thue_do_cosplay/screens/profile_details/profile_details_screen.d
 import 'package:thue_do_cosplay/screens/sign_in/sign_in_screen.dart';
 import 'package:thue_do_cosplay/screens/sign_up/sign_up_screen.dart';
 import 'package:thue_do_cosplay/screens/splash/splash_screen.dart';
-// import 'package:shop_app/screens/cart/cart_screen.dart';
-// import 'package:shop_app/screens/cart/checkout_screen.dart';
-// import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
-// import 'package:shop_app/screens/details/details_screen.dart';
-// import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
-// import 'package:shop_app/screens/invoice/checkout_screen.dart';
-// import 'package:shop_app/screens/invoice/invoice_details.dart';
-// import 'package:shop_app/screens/invoice/invoice_screen.dart';
-// import 'package:shop_app/screens/login_success/login_success_screen.dart';
-// import 'package:shop_app/screens/otp/otp_screen.dart';
-// import 'package:shop_app/screens/profile/components/about.dart';
 
 // We use name route
 // All our routes will be available here

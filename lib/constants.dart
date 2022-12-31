@@ -49,8 +49,8 @@ OutlineInputBorder outlineInputBorder() {
     borderSide: BorderSide(color: kTextColor),
   );
 }
-const String API_URL = 'https://cs-wibu.phatnef.me/api/';
-// 'https://wibuteam.phatdev.xyz/api/';
+
+const String API_URL = 'http://192.168.1.168:3000';
 
 class Fee {
   // Phí vận chuyển

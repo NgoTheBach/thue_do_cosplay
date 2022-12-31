@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:thue_do_cosplay/api/register.dart';
 import 'package:thue_do_cosplay/components/custom_surfix_icon.dart';
 import 'package:thue_do_cosplay/components/default_button.dart';
 import 'package:thue_do_cosplay/components/form_error.dart';
+import 'package:thue_do_cosplay/helper/keyboard.dart';
 import 'package:thue_do_cosplay/screens/sign_in/sign_in_screen.dart';
-
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -15,13 +16,15 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  String? fullname;
+  String? firstName;
+  String? lastName;
   String? email;
   String? password;
-  String? conform_password;
+  String? confirm_password;
   final List<String?> errors = [];
 
-  TextEditingController fullnameText = TextEditingController();
+  TextEditingController firstNameText = TextEditingController();
+  TextEditingController lastNameText = TextEditingController();
   TextEditingController emailText = TextEditingController();
   TextEditingController passwordText = TextEditingController();
 
@@ -45,13 +48,15 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
-          buildFullnameFormField(),
+          buildFirstnameFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+          buildLastnameFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildConformPassFormField(),
+          buildConfirmPassFormField(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
@@ -60,17 +65,9 @@ class _SignUpFormState extends State<SignUpForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
 
-                
-                //temp must delete
-                bool success = true;
-                //must delete 
-
-
-
-
-                // KeyboardUtil.hideKeyboard(context);
-                // bool? success = await fetchRegister(
-                //     fullnameText.text, emailText.text, passwordText.text);
+                KeyboardUtil.hideKeyboard(context);
+                bool? success = await fetchRegister(firstNameText.text,
+                    lastNameText.text, emailText.text, passwordText.text);
                 if (success == true) {
                   _dismissDialog() {
                     Navigator.pop(context);
@@ -100,7 +97,6 @@ class _SignUpFormState extends State<SignUpForm> {
                   addError(
                       error:
                           "Đăng ký không thành công!\nCó thể email đã được đăng ký,\nvui lòng thử lại!");
-                
               }
             },
           ),
@@ -109,17 +105,17 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  TextFormField buildConformPassFormField() {
+  TextFormField buildConfirmPassFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => conform_password = newValue,
+      onSaved: (newValue) => confirm_password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.isNotEmpty && password == conform_password) {
+        } else if (value.isNotEmpty && password == confirm_password) {
           removeError(error: kMatchPassError);
         }
-        conform_password = value;
+        confirm_password = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -210,11 +206,11 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  TextFormField buildFullnameFormField() {
+  TextFormField buildLastnameFormField() {
     return TextFormField(
-      controller: fullnameText,
+      controller: lastNameText,
       keyboardType: TextInputType.name,
-      onSaved: (newValue) => fullname = newValue,
+      onSaved: (newValue) => lastName = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
@@ -229,8 +225,37 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Họ tên",
-        hintText: "Nhập họ tên của bạn",
+        labelText: "Họ",
+        hintText: "Nhập họ của bạn",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildFirstnameFormField() {
+    return TextFormField(
+      controller: firstNameText,
+      keyboardType: TextInputType.name,
+      onSaved: (newValue) => firstName = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kNamelNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Tên",
+        hintText: "Nhập tên của bạn",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

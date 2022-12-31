@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:thue_do_cosplay/api/logout.dart';
+import 'package:thue_do_cosplay/screens/invoice/invoice_screen.dart';
 import 'package:thue_do_cosplay/screens/profile/components/about.dart';
 import 'package:thue_do_cosplay/screens/profile/components/profile_menu.dart';
 import 'package:thue_do_cosplay/screens/profile/components/profile_pic.dart';
 import 'package:thue_do_cosplay/screens/profile_details/profile_details_screen.dart';
 import 'package:thue_do_cosplay/screens/sign_in/sign_in_screen.dart';
-
 
 class Body extends StatelessWidget {
   @override
@@ -25,10 +26,9 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Đơn hàng",
             icon: "assets/icons/Bell.svg",
-            press: ()=>null
-            // press: () {
-            //   Navigator.pushNamed(context, InvoiceScreen.routeName);
-            // },
+            press: () {
+              Navigator.pushNamed(context, InvoiceScreen.routeName);
+            },
           ),
           // ProfileMenu(
           //   text: "Settings",
@@ -67,7 +67,7 @@ class Body extends StatelessWidget {
                         TextButton(
                           onPressed: () async {
                             _dismissDialog();
-                            //await logout();
+                            await logout();
                             Navigator.pushNamed(
                                 context, SignInScreen.routeName);
                           },

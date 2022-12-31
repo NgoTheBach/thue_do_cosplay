@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:thue_do_cosplay/screens/cart/cart_screen.dart';
 import 'package:thue_do_cosplay/screens/home/components/icon_btn_with_counter.dart';
 import 'package:thue_do_cosplay/screens/home/components/search_field.dart';
+import 'package:thue_do_cosplay/screens/invoice/invoice_screen.dart';
 import '../../../size_config.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -19,14 +21,12 @@ class HomeHeader extends StatelessWidget {
           SearchField(),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Cart Icon.svg",
-            press: () => null
-           // press: () => Navigator.pushNamed(context, CartScreen.routeName),
+            press: () => Navigator.pushNamed(context, CartScreen.routeName),
           ),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",
             // numOfitem: 3,
-            press: () => null
-           // press: () => Navigator.pushNamed(context, InvoiceScreen.routeName),
+            press: () => Navigator.pushNamed(context, InvoiceScreen.routeName),
           ),
         ],
       ),

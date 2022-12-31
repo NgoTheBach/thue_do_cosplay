@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:thue_do_cosplay/models/All.dart';
 import 'package:thue_do_cosplay/screens/details/detail_screen.dart';
 // import 'package:shop_app/models/Product.dart';
 
@@ -13,11 +13,11 @@ class ProductCard extends StatelessWidget {
     Key? key,
     this.width = 140,
     this.aspectRetio = 1.02,
-    //required this.product,
+    required this.product,
   }) : super(key: key);
 
   final double width, aspectRetio;
-  //final Product product;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class ProductCard extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 1.02,
                 child: Container(
-                  // padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                  //padding: EdgeInsets.all(getProportionateScreenWidth(20)),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
                     // color: kSecondaryColor.withOpacity(0.1),

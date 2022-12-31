@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:thue_do_cosplay/constants.dart';
 import 'package:thue_do_cosplay/size_config.dart';
 
-
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,11 +16,11 @@ class Body extends StatelessWidget {
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
                 Text("Cập nhật thông tin", style: headingStyle),
-                // Text(
-                //   "Complete your details or continue \nwith social media",
-                //   textAlign: TextAlign.center,
-                // ),
-                // SizedBox(height: SizeConfig.screenHeight * 0.08),
+                Text(
+                  "Complete your details or continue \nwith social media",
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: SizeConfig.screenHeight * 0.08),
                 //chỗ này phải coi sửa cái file dưới body nha
                 //ProfileDetailsForm(),
                 //hihihihihihihi

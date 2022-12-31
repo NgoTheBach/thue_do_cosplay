@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../../constants.dart';
-import '../../../size_config.dart';
+import 'package:thue_do_cosplay/constants.dart';
+import 'package:thue_do_cosplay/screens/product/product_screen.dart';
+import 'package:thue_do_cosplay/size_config.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({
@@ -19,13 +19,11 @@ class SearchField extends StatelessWidget {
       child: TextField(
         textInputAction: TextInputAction.search,
         onSubmitted: (value) {
-         
-          // if (value.length >= 3) {
-          //   Navigator.pushNamed(context, ProductScreen.routeName,
-          //       arguments: ProductArguments(keyword: value));
-          // }
+          if (value.length >= 3) {
+            Navigator.pushNamed(context, ProductScreen.routeName,
+                arguments: ProductArguments(keyword: value));
+          }
         },
-        
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20),

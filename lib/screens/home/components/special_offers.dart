@@ -30,13 +30,19 @@ class SpecialOffers extends StatelessWidget {
             children: [
               SpecialOfferCard(
                 image: "assets/images/Image Banner 2.png",
-                category: "Smartphone",
+                category: "Trang phục",
                 numOfBrands: 18,
                 press: () {},
               ),
               SpecialOfferCard(
                 image: "assets/images/Image Banner 3.png",
-                category: "Fashion",
+                category: "Trang điểm",
+                numOfBrands: 24,
+                press: () {},
+              ),
+              SpecialOfferCard(
+                image: "assets/images/Image Banner 3.png",
+                category: "Phụ kiện",
                 numOfBrands: 24,
                 press: () {},
               ),
@@ -78,10 +84,11 @@ class SpecialOffers extends StatelessWidget {
           //           );
           //        }
           //    }
-           // },
-          ),],
+          // },
+        ),
+      ],
     );
-      
+
     //);
   }
 }

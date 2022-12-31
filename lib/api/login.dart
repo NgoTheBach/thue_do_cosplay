@@ -27,7 +27,7 @@ Future<User?> fetchLogin(String email, String password) async {
 }
 
 Future<bool> saveLogin(User user) async {
-  await BaseSharedPreferences.setString('idUser', user.idUser.toString());
+  await BaseSharedPreferences.setString('idUser', user.idUser);
   await BaseSharedPreferences.setString('firstName', user.firstName);
   await BaseSharedPreferences.setString('lastName', user.lastName);
   await BaseSharedPreferences.setString('email', user.email);

@@ -11,6 +11,7 @@ class ProfileDetailsForm extends StatefulWidget {
   String? firstname;
   String? lastname;
   String? email;
+  String? password;
   String? phoneNumber;
   String? address;
   String? bankAccountNumber;
@@ -86,70 +87,72 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
                                   buildEmailFormField(user?.email),
                                   SizedBox(
                                       height: getProportionateScreenHeight(30)),
-                                  buildPhoneNumberFormField(user?.phoneNumber),
-                                  SizedBox(
-                                      height: getProportionateScreenHeight(30)),
-                                  buildAddressFormField(user?.address),
-                                  SizedBox(
-                                      height: getProportionateScreenHeight(30)),
-                                  Text(
-                                    "Thông tin ngân hàng được dùng để HOÀN LẠI phí đảm bảo tài sản",
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(
-                                      height: getProportionateScreenHeight(30)),
-                                  SizedBox(
-                                      height: getProportionateScreenHeight(40)),
+
+                                  // buildPhoneNumberFormField(user?.phoneNumber),
+                                  // SizedBox(
+                                  //     height: getProportionateScreenHeight(30)),
+                                  // buildAddressFormField(user?.address),
+                                  // SizedBox(
+                                  //     height: getProportionateScreenHeight(30)),
+                                  // Text(
+                                  //   "Thông tin ngân hàng được dùng để HOÀN LẠI phí đảm bảo tài sản",
+                                  //   textAlign: TextAlign.center,
+                                  // ),
+                                  // SizedBox(
+                                  //     height: getProportionateScreenHeight(30)),
+                                  // SizedBox(
+                                  //     height: getProportionateScreenHeight(40)),
                                   DefaultButton(
                                     text: "Lưu",
                                     press: () async {
-                                      if (_formKey.currentState!.validate()) {
-                                        _formKey.currentState!.save();
+                                      // if (_formKey.currentState!.validate()) {
+                                      // _formKey.currentState!.save();
 
-                                        KeyboardUtil.hideKeyboard(context);
-                                        bool? success = await updateUser(
-                                          BaseSharedPreferences.getString(
-                                              'idUser'),
-                                          widget.firstNameText.text,
-                                          widget.lastNameText.text,
-                                          widget.emailText.text,
-                                          widget.phoneNumberText.text,
-                                          widget.addressText.text,
-                                          widget.passwordText.text,
-                                        );
-                                        if (success == true) {
-                                          _dismissDialog() {
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                          }
+                                      KeyboardUtil.hideKeyboard(context);
 
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return AlertDialog(
-                                                  title: Text('Thông báo!'),
-                                                  content: Text(
-                                                      'Cập nhật thành công.'),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        removeError(
-                                                            error:
-                                                                "Không thể cập nhật thông tin.\nvui lòng thử lại!");
-                                                        _dismissDialog();
-                                                      },
-                                                      child: Text('Đóng'),
-                                                    ),
-                                                  ],
-                                                );
-                                              });
-                                        } else
-                                          addError(
-                                              error:
-                                                  "Không thể cập nhật thông tin.\nvui lòng thử lại!");
-                                        // if all are valid then go to success screen
-                                        // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-                                      }
+                                      bool? success = await updateUser(
+                                        BaseSharedPreferences.getString(
+                                            'idUser'),
+                                        widget.firstNameText.text,
+                                        widget.lastNameText.text,
+                                        widget.emailText.text,
+                                        // widget.phoneNumberText.text,
+                                        // widget.addressText.text,
+                                        widget.passwordText.text,
+                                      );
+                                      if (success == true) {
+                                        _dismissDialog() {
+                                          Navigator.pop(context);
+                                          Navigator.pop(context);
+                                        }
+
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Text('Thông báo!'),
+                                                content: Text(
+                                                    'Cập nhật thành công.'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      removeError(
+                                                          error:
+                                                              "Không thể cập nhật thông tin.\nvui lòng thử lại!");
+                                                      _dismissDialog();
+                                                    },
+                                                    child: Text('Đóng'),
+                                                  ),
+                                                ],
+                                              );
+                                            });
+                                      } else
+                                        addError(
+                                            error:
+                                                "Không thể cập nhật thông tin.\nvui lòng thử lại!");
+                                      // if all are valid then go to success screen
+                                      // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                                      // }
                                     },
                                   ),
                                 ],
@@ -165,36 +168,6 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
               }
           }
         });
-
-    // return Form(
-    //   key: _formKey,
-    //   child: Column(
-    //     children: [
-    //       SizedBox(height: getProportionateScreenHeight(30)),
-    //       buildFullnameFormField(),
-    //       SizedBox(height: getProportionateScreenHeight(30)),
-    //       buildEmailFormField(),
-    //       SizedBox(height: getProportionateScreenHeight(30)),
-    //       buildPasswordFormField(),
-    //       SizedBox(height: getProportionateScreenHeight(30)),
-    //       buildConformPassFormField(),
-    //       FormError(errors: errors),
-    //       SizedBox(height: getProportionateScreenHeight(40)),
-    //       // DefaultButton(
-    //       //   text: "Tiếp tục",
-    //       //   press: () async {
-    //       //     if (_formKey.currentState!.validate()) {
-    //       //       _formKey.currentState!.save();
-
-    //       //       KeyboardUtil.hideKeyboard(context);
-    //       //       // if all are valid then go to success screen
-    //       //       // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-    //       //     }
-    //       //   },
-    //       // ),
-    //     ],
-    //   ),
-    // );
   }
 
   TextFormField buildAddressFormField(String? text) {
@@ -211,7 +184,7 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kAddresNullError);
+          addError(error: kAddressNullError);
           return "";
         }
         return null;
@@ -219,8 +192,6 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
       decoration: InputDecoration(
         labelText: "Địa chỉ giao hàng",
         hintText: "Nhập địa chỉ giao hàng",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         // suffixIcon:
         //     CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
@@ -293,12 +264,12 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
     );
   }
 
-  TextFormField buildFirstnameFormField(String? text) {
-    widget.firstNameText.text = text ?? '';
+  TextFormField buildPasswordFormField(String? text) {
+    widget.passwordText.text = text ?? '';
     return TextFormField(
-      controller: widget.firstNameText,
+      controller: widget.passwordText,
       keyboardType: TextInputType.text,
-      onSaved: (newValue) => widget.firstname = newValue,
+      onSaved: (newValue) => widget.password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
@@ -312,6 +283,23 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
         }
         return null;
       },
+      decoration: InputDecoration(
+        labelText: "Mật khẩu",
+        hintText: "Nhập mật khẩu",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildFirstnameFormField(String? text) {
+    widget.firstNameText.text = text ?? '';
+    return TextFormField(
+      controller: widget.firstNameText,
+      keyboardType: TextInputType.text,
+      onSaved: (newValue) => widget.firstname = newValue,
       decoration: InputDecoration(
         labelText: "Tên",
         hintText: "Nhập tên của bạn",
@@ -329,19 +317,6 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
       controller: widget.lastNameText,
       keyboardType: TextInputType.text,
       onSaved: (newValue) => widget.lastname = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kNamelNullError);
-        }
-        return null;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          addError(error: kNamelNullError);
-          return "";
-        }
-        return null;
-      },
       decoration: InputDecoration(
         labelText: "Họ",
         hintText: "Nhập họ của bạn",

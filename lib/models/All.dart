@@ -11,23 +11,24 @@ class Res {
 }
 
 class User {
-  final int idUser;
-  final String firstName;
-  final String lastName;
-  final String? address;
-  final String email;
-  //final String password;
-  final String? phoneNumber;
+  late String idUser;
+  late String firstName;
+  late String lastName;
+  late String? address;
+  late String email;
+  late String password;
+  late String? phoneNumber;
   // final String? user_token;
 
   User(this.idUser, this.firstName, this.lastName, this.address, this.email,
-      this.phoneNumber);
+      this.password, this.phoneNumber);
   User.fromJson(Map<String, dynamic> json)
-      : idUser = json['idUser'],
+      : idUser = json['idUser'].toString(),
         firstName = json['firstName'],
         lastName = json['lastName'],
         address = json['address'],
         email = json['email'],
+        password = json['password'],
         phoneNumber = json['phoneNumber'];
   Map<String, dynamic> toJson() => {
         'idUser': idUser,
@@ -35,6 +36,7 @@ class User {
         'lastName': lastName,
         'address': address,
         'email': email,
+        'password': password,
         'phoneNumber': phoneNumber,
       };
 }

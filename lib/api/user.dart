@@ -22,30 +22,33 @@ Future<bool> updateUser(
     String userFirstname,
     String userLastName,
     String userEmail,
-    String userPhoneNumber,
-    String userAddress,
+    // String? userPhoneNumber,
+    // String? userAddress,
     String userPassword) async {
   String userId = await _userId;
-
   Map<String, dynamic> map = {
-    'idUser': int.parse(userId),
-    'password': userPassword,
+    'idUser': userId,
     'firstName': userFirstname,
     'lastName': userLastName,
-    'address': userAddress,
+
     'email': userEmail,
-    'phoneNumber': userPhoneNumber,
+    // 'address': userAddress,
+    // 'phoneNumber': userPhoneNumber,
+    'address': '',
+    'phoneNumber': '123',
+    'password': userPassword,
   };
   final response = await http.post(
-    Uri.parse(API_URL + '/api/users/update-user' + userId),
+    Uri.parse(API_URL + '/api/users/update-user'),
     headers: <String, String>{
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     },
     body: map,
   );
 
-  if (response.statusCode == 200)
-    return jsonDecode(response.body)['success'];
-  else
+  if (response.statusCode == 200) {
+    print(userId);
+    return true;
+  } else
     return false;
 }

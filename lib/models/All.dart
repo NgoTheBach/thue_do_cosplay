@@ -117,38 +117,38 @@ class Product {
 }
 
 class Cart {
-  final String product_id;
-  final String product_name;
-  final int product_rental_price;
-  final String product_img;
-  final int product_quantity;
-  final int product_weight;
-  final int cart_product_quantity;
-
+  final String idProduct;
+  final String productName;
+  final int productRentalPrice;
+  final String productUrlImage;
+  final int productQuantity;
+  final int productWeight;
+  final int cartProductQuantity;
+  // p.idProduct, p.productName,p.productRentalPrice, p.productUrlImage, p.productQuantity, p.productWeight, c.cartProductQuantity from cart as c, product as p where idUser = ? and c.idProduct = p.idProduct
   Cart(
-      this.product_id,
-      this.product_name,
-      this.product_rental_price,
-      this.product_img,
-      this.product_quantity,
-      this.product_weight,
-      this.cart_product_quantity);
+      this.idProduct,
+      this.productName,
+      this.productRentalPrice,
+      this.productUrlImage,
+      this.productQuantity,
+      this.productWeight,
+      this.cartProductQuantity);
   Cart.fromJson(Map<String, dynamic> json)
-      : product_id = json['product_id'],
-        product_name = json['product_name'],
-        product_rental_price = int.parse(json['product_rental_price']),
-        product_img = json['product_img'],
-        product_quantity = int.parse(json['product_quantity']),
-        product_weight = int.parse(json['product_weight']),
-        cart_product_quantity = int.parse(json['cart_product_quantity']);
+      : idProduct = json['idProduct'],
+        productName = json['productName'],
+        productRentalPrice = int.parse(json['productRentalPrice']),
+        productUrlImage = json['productUrlImage'],
+        productQuantity = int.parse(json['productQuantity']),
+        productWeight = int.parse(json['productWeight']),
+        cartProductQuantity = int.parse(json['cartProductQuantity']);
   Map<String, dynamic> toJson() => {
-        'product_id': product_id,
-        'product_name': product_name,
-        'product_rental_price': product_rental_price,
-        'product_img': product_img,
-        'product_quantity': product_quantity,
-        'product_weight': product_weight,
-        'cart_product_quantity': cart_product_quantity,
+        'idProduct': idProduct,
+        'productName': productName,
+        'productRentalPrice': productRentalPrice,
+        'productUrlImage': productUrlImage,
+        'productQuantity': productQuantity,
+        'productWeight': productWeight,
+        'cartProductQuantity': cartProductQuantity,
       };
 }
 

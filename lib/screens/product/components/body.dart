@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:thue_do_cosplay/api/product.dart';
+import 'package:thue_do_cosplay/components/product_card.dart';
+import 'package:thue_do_cosplay/models/All.dart';
 import 'package:thue_do_cosplay/screens/home/components/home_header.dart';
 import 'package:thue_do_cosplay/screens/home/components/section_title.dart';
 
@@ -29,7 +32,7 @@ class _BodyState extends State<Body> {
   bool _isLoadMoreRunning = false;
   // This holds the posts fetched from the server
   // List _posts = [];
-  //List<Product> _products = [];
+  List<Product> _products = [];
   // This function will be called when the app launches (see the initState function)
   void _firstLoad() async {
     setState(() {
@@ -40,21 +43,21 @@ class _BodyState extends State<Body> {
       title = 'Tìm kiếm';
     }
     //chức năng search cần api
-    // try {
-    //   // final res =
-    //   //     await http.get(Uri.parse("$_baseUrl?page=$_page&limit=$_limit"));
-    //   final res;
-    //   if (search)
-    //     res = await getProductsBySearch(widget.keyword, _page, _limit);
-    //   else
-    //     res = await getProducts(_page, _limit);
-    //   setState(() {
-    //     // _posts = json.decode(res.body);
-    //     _products = res!;
-    //   });
-    // } catch (err) {
-    //   print('Something went wrong');
-    // }
+    try {
+      //   // final res =
+      //   //     await http.get(Uri.parse("$_baseUrl?page=$_page&limit=$_limit"));
+      final res;
+      //   if (search)
+      //     res = await getProductsBySearch(widget.keyword, _page, _limit);
+      //   else
+      res = await getProducts();
+      setState(() {
+        //     // _posts = json.decode(res.body);
+        _products = res!;
+      });
+    } catch (err) {
+      print('Something went wrong');
+    }
 
     setState(() {
       _isFirstLoadRunning = false;
@@ -76,25 +79,25 @@ class _BodyState extends State<Body> {
         // final res =
         //     await http.get(Uri.parse("$_baseUrl?page=$_page&limit=$_limit"));
         //chỗ này cũng là chức năng tạm cmt lại nha
-        // var res;
+        var res;
         // if (search)
         //   res = await getProductsBySearch(widget.keyword, _page, _limit);
         // else
-        //   res = await getProducts(_page, _limit);
+        res = await getProducts();
 
         // // final List fetchedPosts = json.decode(res.body);
-        // final List<Product> fetchedProducts = res!;
-        // if (fetchedProducts.length > 0) {
-        //   setState(() {
-        //     _products.addAll(fetchedProducts);
-        //   });
-        // } else {
-        //   // This means there is no more data
-        //   // and therefore, we will not send another GET request
-        //   setState(() {
-        //     _hasNextPage = false;
-        //   });
-        // }
+        final List<Product> fetchedProducts = res!;
+        if (fetchedProducts.length > 0) {
+          setState(() {
+            _products.addAll(fetchedProducts);
+          });
+        } else {
+          //   // This means there is no more data
+          //   // and therefore, we will not send another GET request
+          setState(() {
+            _hasNextPage = false;
+          });
+        }
       } catch (err) {
         print('Something went wrong!');
       }
@@ -141,30 +144,30 @@ class _BodyState extends State<Body> {
             ),
           ),
           SizedBox(height: getProportionateScreenWidth(20)),
-          
+
           //có api thì show chỗ này ra nha
-          // _isFirstLoadRunning
-          //     ? Center(
-          //         child: CircularProgressIndicator(),
-          //       )
-          //     : Expanded(
-          //         child: GridView.count(
-          //           // shrinkWrap: true,
-          //           padding: EdgeInsets.all(18.0),
-          //           childAspectRatio: 1 / 1.5,
-          //           crossAxisCount: 2,
-          //           children: [
-          //             ...List.generate(
-          //               _products.length,
-          //               (index) {
-          //                 return ProductCard(product: _products[index]);
-          //               },
-          //             ),
-          //             SizedBox(width: getProportionateScreenWidth(20)),
-          //           ],
-          //         ),
-          //       ),
-          // SizedBox(width: getProportionateScreenWidth(20)),
+          _isFirstLoadRunning
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Expanded(
+                  child: GridView.count(
+                    // shrinkWrap: true,
+                    padding: EdgeInsets.all(18.0),
+                    childAspectRatio: 1 / 1.5,
+                    crossAxisCount: 2,
+                    children: [
+                      ...List.generate(
+                        _products.length,
+                        (index) {
+                          return ProductCard(product: _products[index]);
+                        },
+                      ),
+                      SizedBox(width: getProportionateScreenWidth(20)),
+                    ],
+                  ),
+                ),
+          SizedBox(width: getProportionateScreenWidth(20)),
           // when the _loadMore function is running
           if (_isLoadMoreRunning == true)
             Padding(

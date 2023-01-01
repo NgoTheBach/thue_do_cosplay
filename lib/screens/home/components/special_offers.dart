@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:thue_do_cosplay/screens/category/category_screen.dart';
+import 'package:thue_do_cosplay/screens/product/product_screen.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
@@ -17,10 +19,8 @@ class SpecialOffers extends StatelessWidget {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
             title: "Danh mục",
-            press: () {
-              //Navigator.pushNamed(context, CategoryScreen.routeName);
-            },
-            seeMore: true,
+            press: () {},
+            seeMore: false,
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
@@ -29,22 +29,31 @@ class SpecialOffers extends StatelessWidget {
           child: Row(
             children: [
               SpecialOfferCard(
-                image: "assets/images/Image Banner 2.png",
+                image: "assets/images/Image Banner 4.jpg",
                 category: "Trang phục",
                 numOfBrands: 18,
-                press: () {},
+                press: () {
+                  Navigator.pushNamed(context, ProductScreen.routeName,
+                      arguments: ProductArguments(keyword: ''));
+                },
               ),
               SpecialOfferCard(
-                image: "assets/images/Image Banner 3.png",
-                category: "Trang điểm",
+                image: "assets/images/Image Banner 6.jpg",
+                category: "Wig",
                 numOfBrands: 24,
-                press: () {},
+                press: () {
+                  Navigator.pushNamed(context, ProductScreen.routeName,
+                      arguments: ProductArguments(keyword: ''));
+                },
               ),
               SpecialOfferCard(
-                image: "assets/images/Image Banner 3.png",
+                image: "assets/images/Image Banner 5.jpg",
                 category: "Phụ kiện",
                 numOfBrands: 24,
-                press: () {},
+                press: () {
+                  Navigator.pushNamed(context, ProductScreen.routeName,
+                      arguments: ProductArguments(keyword: ''));
+                },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
             ],

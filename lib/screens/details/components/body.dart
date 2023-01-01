@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thue_do_cosplay/api/cart.dart';
 import 'package:thue_do_cosplay/components/default_button.dart';
 import 'package:thue_do_cosplay/models/All.dart';
 import 'package:thue_do_cosplay/shared_preferences.dart';
@@ -47,18 +48,18 @@ class Body extends StatelessWidget {
                         child: DefaultButton(
                           text: "Thêm vào giỏ hàng",
                           press: () async {
-                            // bool addToCart = await postCart(
-                            //     BaseSharedPreferences.getString('user_id'),
-                            //     product.product_id,
-                            //     colorDots.quantity);
+                            bool addToCart = await postCart(
+                                BaseSharedPreferences.getString('idUser'),
+                                product.idProduct,
+                                colorDots.quantity);
                             String noti = '';
-                            // if (addToCart == true)
-                            //   noti = 'Đã thêm vào giỏ hàng!';
-                            // else
-                            //   noti = 'Không thể thêm vào giỏ hàng!';
-                            // _dismissDialog() {
-                            //   Navigator.pop(context);
-                            // }
+                            if (addToCart == true)
+                              noti = 'Đã thêm vào giỏ hàng!';
+                            else
+                              noti = 'Không thể thêm vào giỏ hàng!';
+                            _dismissDialog() {
+                              Navigator.pop(context);
+                            }
 
                             showDialog(
                                 context: context,
@@ -71,7 +72,7 @@ class Body extends StatelessWidget {
                                     actions: <Widget>[
                                       TextButton(
                                         onPressed: () {
-                                          //_dismissDialog();
+                                          _dismissDialog();
                                         },
                                         child: Text('Đóng'),
                                       ),

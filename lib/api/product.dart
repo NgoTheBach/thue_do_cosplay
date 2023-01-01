@@ -23,14 +23,13 @@ Future<List<Product>?> getProducts() async {
   }
 }
 
-// Future<List<Product>?> getProductsBySearch(
-//     String keyword, int page, int limit) async {
-//   final response = await http.get(Uri.parse(API_URL +
-//       '?action=search_products&keyword=$keyword&page=$page&limit=$limit'));
+// Future<List<Product>?> getProductsBySearch(String keyword) async {
+//   final response =
+//       await http.get(Uri.parse(API_URL + '/api/products/get-products-by-name'));
 
 //   if (response.statusCode == 200) {
 //     final data = jsonDecode(response.body);
-//     if (data['success'] == false) return null;
+//     //if (data['success'] == false) return null;
 //     List<Product> products = [];
 //     for (var item in data['data']) {
 //       products.add(Product.fromJson(item));

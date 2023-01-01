@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-
-import '../../../constants.dart';
-import '../../../size_config.dart';
+import 'package:thue_do_cosplay/constants.dart';
+import 'package:thue_do_cosplay/models/All.dart';
+import 'package:thue_do_cosplay/size_config.dart';
 
 class CartCard extends StatelessWidget {
   const CartCard({
     Key? key,
-    // required this.cart,
+    required this.cart,
   }) : super(key: key);
 
-  // final Cart cart;
+  final Cart cart;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +20,13 @@ class CartCard extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 0.88,
             child: Container(
-                padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-                decoration: BoxDecoration(
-                  color: Color(0xFFF5F6F9),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Text(
-                    "thanh") //Image.network(cart.product_img.split('|')[0]),
-                ),
+              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+              decoration: BoxDecoration(
+                color: Color(0xFFF5F6F9),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Image.network(cart.productUrlImage.split('|')[0]),
+            ),
           ),
         ),
         SizedBox(width: 20),
@@ -36,8 +35,7 @@ class CartCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "product name",
-                //cart.product_name,
+                cart.productName,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,
@@ -48,19 +46,17 @@ class CartCard extends StatelessWidget {
               SizedBox(height: 10),
               Text.rich(
                 TextSpan(
-                  text: "rental_price",
-                  //"${numberWithDot(cart.product_rental_price.toString())}đ",
+                  text: "${numberWithDot(cart.productRentalPrice.toString())}đ",
                   style: TextStyle(
                       fontWeight: FontWeight.w600, color: kPrimaryColor),
                   children: [
                     TextSpan(
-                      text:
-                          "product quantity", //" x${cart.cart_product_quantity}",
+                      text: " ${cart.cartProductQuantity}",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     TextSpan(
-                      text: "total money= quantity * rental_price",
-                      //" = ${numberWithDot((cart.cart_product_quantity * cart.product_rental_price).toString())}đ",
+                      text:
+                          " = ${numberWithDot((cart.cartProductQuantity * cart.productRentalPrice).toString())}đ",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],

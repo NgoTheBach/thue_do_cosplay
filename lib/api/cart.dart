@@ -13,7 +13,7 @@ Future<List<Cart>?> getCarts(Future<String> _userId) async {
 
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
-    if (data['success'] == false) return null;
+    //if (data['success'] == false) return null;
     List<Cart> carts = [];
     for (var item in data['data']) {
       carts.add(Cart.fromJson(item));

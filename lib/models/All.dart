@@ -117,36 +117,52 @@ class Product {
 }
 
 class Cart {
-  final String idProduct;
-  final String productName;
-  final int productRentalPrice;
-  final String productUrlImage;
-  final int productQuantity;
-  final int productWeight;
-  final int cartProductQuantity;
+  late String idProduct;
+  late String productName;
+  late String productUrlImage;
+  late String idProductType;
+  late String? productSize;
+  late int productRentalPrice;
+  late String productDescription;
+  late int productPrice;
+  late int productQuantity;
+  late int productWeight;
+  late int cartProductQuantity;
   // p.idProduct, p.productName,p.productRentalPrice, p.productUrlImage, p.productQuantity, p.productWeight, c.cartProductQuantity from cart as c, product as p where idUser = ? and c.idProduct = p.idProduct
   Cart(
       this.idProduct,
       this.productName,
-      this.productRentalPrice,
       this.productUrlImage,
+      this.idProductType,
+      this.productSize,
+      this.productDescription,
+      this.productPrice,
+      this.productRentalPrice,
       this.productQuantity,
       this.productWeight,
       this.cartProductQuantity);
   Cart.fromJson(Map<String, dynamic> json)
-      : idProduct = json['idProduct'],
+      : idProduct = json['idProduct'].toString(),
         productName = json['productName'],
-        productRentalPrice = int.parse(json['productRentalPrice']),
+        productQuantity = json['productQuantity'],
         productUrlImage = json['productUrlImage'],
-        productQuantity = int.parse(json['productQuantity']),
-        productWeight = int.parse(json['productWeight']),
-        cartProductQuantity = int.parse(json['cartProductQuantity']);
+        idProductType = json['idProductType'].toString(),
+        productSize = json['productSize'],
+        productRentalPrice = json['productRentalPrice'],
+        productDescription = json['productDescription'],
+        productPrice = (json['productPrice']),
+        productWeight = (json['productWeight']),
+        cartProductQuantity = (json['cartProductQuantity']);
   Map<String, dynamic> toJson() => {
         'idProduct': idProduct,
         'productName': productName,
-        'productRentalPrice': productRentalPrice,
-        'productUrlImage': productUrlImage,
         'productQuantity': productQuantity,
+        'productUrlImage': productUrlImage,
+        'idProductType': idProductType,
+        'productSize': productSize,
+        'productRentalPrice': productRentalPrice,
+        'productDescription': productDescription,
+        'productPrice': productPrice,
         'productWeight': productWeight,
         'cartProductQuantity': cartProductQuantity,
       };

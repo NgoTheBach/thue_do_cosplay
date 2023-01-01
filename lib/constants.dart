@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:thue_do_cosplay/models/All.dart';
 import 'package:thue_do_cosplay/size_config.dart';
 
 const kPrimaryColor = Color(0xFFFF7643);
@@ -87,25 +88,25 @@ String unixToDate(int unix) {
   return d24;
 }
 
-// class Calculate with ChangeNotifier {
-//   Calculate({required this.carts});
+class Calculate with ChangeNotifier {
+  Calculate({required this.carts});
 
-//   List<Cart> carts;
-//   int _sum = 0;
-//   int _num = 0;
-//   int _weight = 0;
+  List<Cart> carts;
+  int _sum = 0;
+  int _num = 0;
+  int _weight = 0;
 
-//   int get sum => _sum;
-//   int get num => _num;
-//   int get weight => _weight;
+  int get sum => _sum;
+  int get num => _num;
+  int get weight => _weight;
 
-//   void update() async {
-//     _sum = 0;
-//     _num = carts.length;
-//     for (var cart in carts) {
-//       _sum += cart.cart_product_quantity * cart.product_rental_price;
-//       _weight += cart.cart_product_quantity * cart.product_weight;
-//     }
-//     notifyListeners();
-//   }
-// }
+  void update() async {
+    _sum = 0;
+    _num = carts.length;
+    for (var cart in carts) {
+      _sum += cart.cartProductQuantity * cart.productRentalPrice;
+      _weight += cart.cartProductQuantity * cart.productWeight;
+    }
+    notifyListeners();
+  }
+}

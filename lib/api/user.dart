@@ -22,20 +22,17 @@ Future<bool> updateUser(
     String userFirstname,
     String userLastName,
     String userEmail,
-    // String? userPhoneNumber,
-    // String? userAddress,
+    String? userPhoneNumber,
+    String? userAddress,
     String userPassword) async {
   String userId = await _userId;
   Map<String, dynamic> map = {
     'idUser': userId,
     'firstName': userFirstname,
     'lastName': userLastName,
-
     'email': userEmail,
-    // 'address': userAddress,
-    // 'phoneNumber': userPhoneNumber,
-    'address': '',
-    'phoneNumber': '123',
+    'address': userAddress,
+    'phoneNumber': userPhoneNumber,
     'password': userPassword,
   };
   final response = await http.post(

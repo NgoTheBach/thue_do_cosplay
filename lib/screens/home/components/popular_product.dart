@@ -9,11 +9,6 @@ import 'package:thue_do_cosplay/size_config.dart';
 class PopularProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // List<Product> products = [];
-    // getProducts(1, 10).then((List<Product> products) {
-    //   // products.addAll(product);
-    // });
-
     return Column(
       children: [
         Padding(
@@ -32,7 +27,7 @@ class PopularProducts extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: FutureBuilder<List<Product>?>(
-            future: getProducts(1, 10), // async work
+            future: getProducts(), // async work
             builder:
                 (BuildContext context, AsyncSnapshot<List<Product>?> snapshot) {
               switch (snapshot.connectionState) {

@@ -29,9 +29,7 @@ class ProductCard extends StatelessWidget {
           onTap: () => Navigator.pushNamed(
             context,
             DetailsScreen.routeName,
-            arguments: ProductDetailsArguments(
-                // product: product
-                ),
+            arguments: ProductDetailsArguments(product: product),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,16 +42,15 @@ class ProductCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(18),
                     // color: kSecondaryColor.withOpacity(0.1),
                     image: DecorationImage(
-                      image: NetworkImage(""
-                          //product.product_img.split('|')[0]
-                          ),
+                      image:
+                          NetworkImage(product.productUrlImage.split('|')[0]),
                       fit: BoxFit.cover,
                       // alignment: Alignment.center,
                     ),
                   ),
                   child: Hero(
-                    tag: 1, //product.product_id,
-                    // child: Image.network(product.product_img.split('|')[0]),
+                    tag: product.idProduct,
+                    //\ child: Image.network(product.product_img.split('|')[0]),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: BackdropFilter(
@@ -64,9 +61,8 @@ class ProductCard extends StatelessWidget {
                           color: Colors.grey.withOpacity(0.1),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
-                            child: Image.network(""
-                                //product.product_img.split('|')[0]
-                                ),
+                            child: Image.network(
+                                product.productUrlImage.split('|')[0]),
                           ),
                         ),
                       ),
@@ -76,8 +72,7 @@ class ProductCard extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                //product.product_name,
-                "product name",
+                product.productName,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.black),
                 maxLines: 2,
@@ -86,35 +81,13 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "product rental price",
-                    //"${numberWithDot(product.product_rental_price.toString())}đ",
+                    "${numberWithDot(product.productRentalPrice.toString())}đ",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,
                       color: kPrimaryColor,
                     ),
                   ),
-                  // InkWell(
-                  //   borderRadius: BorderRadius.circular(50),
-                  //   onTap: () {},
-                  //   child: Container(
-                  //     padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                  //     height: getProportionateScreenWidth(28),
-                  //     width: getProportionateScreenWidth(28),
-                  //     decoration: BoxDecoration(
-                  //       color: //product.isFavourite
-                  //           true
-                  //               ? kPrimaryColor.withOpacity(0.15)
-                  //               : kSecondaryColor.withOpacity(0.1),
-                  //       shape: BoxShape.circle,
-                  //     ),
-                  //     child: SvgPicture.asset(
-                  //       "assets/icons/Heart Icon_2.svg",
-                  //       color: //product.isFavourite
-                  //           true ? Color(0xFFFF4848) : Color(0xFFDBDEE4),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               )
             ],

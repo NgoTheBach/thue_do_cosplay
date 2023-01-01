@@ -5,13 +5,13 @@ import 'package:thue_do_cosplay/constants.dart';
 import 'package:thue_do_cosplay/models/All.dart';
 // import 'package:shop_app/shared_preferences.dart';
 
-Future<List<Product>?> getProducts(int page, int limit) async {
+Future<List<Product>?> getProducts() async {
   final response =
       await http.get(Uri.parse(API_URL + '/api/products/get-products'));
 
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
-    if (data['success'] == false) return null;
+    //if (data['success'] == false) return null;
     List<Product> products = [];
     for (var item in data['data']) {
       products.add(Product.fromJson(item));

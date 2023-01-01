@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-// import 'package:shop_app/screens/details/components/custom_app_bar.dart';
-// import 'package:shop_app/models/Product.dart';
-
-import '../../../constants.dart';
-import '../../../size_config.dart';
+import 'package:thue_do_cosplay/constants.dart';
+import 'package:thue_do_cosplay/models/All.dart';
+import 'package:thue_do_cosplay/size_config.dart';
 
 class ProductImages extends StatefulWidget {
   const ProductImages({
     Key? key,
-    //required this.product,
+    required this.product,
   }) : super(key: key);
 
-  //final Product product;
+  final Product product;
 
   @override
   _ProductImagesState createState() => _ProductImagesState();
@@ -29,10 +27,9 @@ class _ProductImagesState extends State<ProductImages> {
           child: AspectRatio(
             aspectRatio: 1,
             child: Hero(
-              tag: 1, //widget.product.product_id,
-              child: Image.network("image url"
-                  //widget.product.product_img.split('|')[selectedImage]
-                  ),
+              tag: widget.product.idProduct,
+              child: Image.network(
+                  widget.product.productUrlImage.split('|')[selectedImage]),
             ),
           ),
         ),
@@ -42,10 +39,8 @@ class _ProductImagesState extends State<ProductImages> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // ...List.generate(
-            //   widget.product.product_img.split('|').length,
-            //     (index) => buildSmallProductPreview(index)
-            //     ),
+            ...List.generate(widget.product.productUrlImage.split('|').length,
+                (index) => buildSmallProductPreview(index)),
           ],
         )
       ],
@@ -71,9 +66,7 @@ class _ProductImagesState extends State<ProductImages> {
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.network("image url"
-            //widget.product.product_img.split('|')[index]
-            ),
+        child: Image.network(widget.product.productUrlImage.split('|')[index]),
       ),
     );
   }

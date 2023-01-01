@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:ffi';
+
 class Res {
   final String success;
 
@@ -42,68 +44,75 @@ class User {
 }
 
 class ProductType {
-  final String product_type_id;
-  final String product_type_name;
-  final int product_type_quantity;
+  late String idProductType;
+  late String typeName;
+  //final int product_type_quantity;
 
   ProductType(
-      this.product_type_id, this.product_type_name, this.product_type_quantity);
+    this.idProductType,
+    this.typeName,
+    //this.product_type_quantity
+  );
   ProductType.fromJson(Map<String, dynamic> json)
-      : product_type_id = json['product_type_id'],
-        product_type_name = json['product_type_name'],
-        product_type_quantity = int.parse(json['product_type_quantity']);
+      : idProductType = json['idProductType'],
+        typeName = json['typeName'];
+  //product_type_quantity = int.parse(json['product_type_quantity']);
   Map<String, dynamic> toJson() => {
-        'product_type_id': product_type_id,
-        'product_type_name': product_type_name,
-        'product_type_quantity': product_type_quantity,
+        'idProductType': idProductType,
+        'typeName': typeName,
+        //'product_type_quantity': product_type_quantity,
       };
 }
 
 class Product {
-  final String idProduct;
-  final String productName;
-  final String? idProductType;
-  final String? typeName;
-  final int? productPrice;
-  final int productRentalPrice;
-  final String productUrlImage;
-  final int? productQuantity;
-  final String? idProductSize;
-  final int? productDescription;
+  late String idProduct;
+  late String productName;
+  late String productQuantity;
+  late String productUrlImage;
+  late String? idProductType;
+  late String? productSize;
+  late String productRentalPrice;
+  late String? productDescription;
+  late String? typeName;
+  late String productPrice;
+  late String? productWeight;
 
   Product(
       this.idProduct,
       this.productName,
+      this.productQuantity,
+      this.productUrlImage,
       this.idProductType,
+      this.productSize,
+      this.productRentalPrice,
+      this.productDescription,
       this.typeName,
       this.productPrice,
-      this.productRentalPrice,
-      this.productUrlImage,
-      this.productQuantity,
-      this.idProductSize,
-      this.productDescription);
+      this.productWeight);
   Product.fromJson(Map<String, dynamic> json)
-      : idProduct = json['idProduct'],
+      : idProduct = json['idProduct'].toString(),
         productName = json['productName'],
-        idProductType = json['idProductType'],
-        typeName = json['typeName'],
-        productPrice = int.parse(json['productPrice']),
-        productRentalPrice = int.parse(json['productRentalPrice']),
-        productUrlImage = json['productUrlImage'],
-        productQuantity = int.parse(json['productQuantity']),
-        idProductSize = json['idProductSize'],
-        productDescription = json['productDescription'];
+        idProductType = json['idProductType'].toString(),
+        productPrice = json['productPrice'].toString(),
+        productRentalPrice = json['productRentalPrice'].toString(),
+        productUrlImage = json['productUrlImage'].toString(),
+        productQuantity = json['productQuantity'].toString(),
+        productSize = json['productSize'].toString(),
+        productWeight = json['productWeight'].toString(),
+        productDescription = json['productDescription'].toString(),
+        typeName = json['typeName'].toString();
   Map<String, dynamic> toJson() => {
         'idProduct': idProduct,
         'productName': productName,
         'idProductType': idProductType,
-        'typeName': typeName,
         'productPrice': productPrice,
         'productRentalPrice': productRentalPrice,
         'productUrlImage': productUrlImage,
         'productQuantity': productQuantity,
-        'idProductSize': idProductSize,
+        'idProductSize': productSize,
+        'productWeight': productWeight,
         'productDescription': productDescription,
+        'typeName': typeName,
       };
 }
 

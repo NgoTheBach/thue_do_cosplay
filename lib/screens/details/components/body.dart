@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thue_do_cosplay/components/default_button.dart';
+import 'package:thue_do_cosplay/models/All.dart';
 import 'package:thue_do_cosplay/shared_preferences.dart';
 import 'package:thue_do_cosplay/size_config.dart';
 // import 'package:shop_app/models/Product.dart';
@@ -10,28 +11,23 @@ import 'top_rounded_container.dart';
 import 'product_images.dart';
 
 class Body extends StatelessWidget {
-  //final Product product;
+  final Product product;
 
-  const Body({
-    Key? key,
-    // required this.product
-  }) : super(key: key);
+  const Body({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ColorDots colorDots = ColorDots(
-        // product: product
-        );
+    ColorDots colorDots = ColorDots(product: product);
     // ColorDots _colorDots = new ColorDots(product: product);
     return ListView(
       children: [
-        //ProductImages(product: product),
+        ProductImages(product: product),
         TopRoundedContainer(
           color: Colors.white,
           child: Column(
             children: [
               ProductDescription(
-                //product: product,
+                product: product,
                 pressOnSeeMore: () {},
               ),
               TopRoundedContainer(

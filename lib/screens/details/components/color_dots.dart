@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:thue_do_cosplay/components/rounded_icon_btn.dart';
+import 'package:thue_do_cosplay/models/All.dart';
 // import 'package:shop_app/models/Product.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class ColorDots extends StatefulWidget {
-  ColorDots({
-    Key? key,
-    // required this.product
-  }) : super(key: key);
+  ColorDots({Key? key, required this.product}) : super(key: key);
 
-  //final Product product;
+  final Product product;
   int quantity = 0;
   @override
   State<ColorDots> createState() => _ColorDotsState();
@@ -25,7 +23,7 @@ class _ColorDotsState extends State<ColorDots> {
   @override
   void initState() {
     super.initState();
-    //_maxValue = widget.product.product_quantity;
+    _maxValue = int.parse(widget.product.productQuantity);
     if (_maxValue == null)
       maxValue = 0;
     else

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:thue_do_cosplay/api/cart.dart';
-import 'package:thue_do_cosplay/constants.dart';
-import 'package:thue_do_cosplay/models/All.dart';
-import 'package:thue_do_cosplay/screens/cart/components/cart.dart';
-import 'package:thue_do_cosplay/shared_preferences.dart';
+import 'package:shop_app/api/cart.dart';
+import 'package:shop_app/constants.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/shared_preferences.dart';
 
 import '../../../size_config.dart';
+import 'cart_card.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key, required this.carts}) : super(key: key);
@@ -24,6 +24,81 @@ class _BodyState extends State<Body> {
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+      // child: ListView.builder(
+      //   itemCount: [].length,
+      //   itemBuilder: (context, index) => Padding(
+      //     padding: EdgeInsets.symmetric(vertical: 10),
+      //     child: Dismissible(
+      //       key: Key([][index].product.product_id),
+      //       direction: DismissDirection.endToStart,
+      //       onDismissed: (direction) {
+      //         setState(() {
+      //           [].removeAt(index);
+      //         });
+      //       },
+      //       background: Container(
+      //         padding: EdgeInsets.symmetric(horizontal: 20),
+      //         decoration: BoxDecoration(
+      //           color: Color(0xFFFFE6E6),
+      //           borderRadius: BorderRadius.circular(15),
+      //         ),
+      //         child: Row(
+      //           children: [
+      //             Spacer(),
+      //             SvgPicture.asset("assets/icons/Trash.svg"),
+      //           ],
+      //         ),
+      //       ),
+      //       child: CartCard(cart: [][index]),
+      //     ),
+      //   ),
+      // ),
+
+      // child: FutureBuilder<List<Cart>?>(
+      //     future: getCarts(BaseSharedPreferences.getString('user_id')),
+      //     builder: (BuildContext context, AsyncSnapshot<List<Cart>?> snapshot) {
+      //       switch (snapshot.connectionState) {
+      //         case ConnectionState.waiting:
+      //           return Text('Loading...');
+      //         default:
+      //           if (snapshot.hasError) {
+      //             print('Error: ${snapshot.error}');
+      //             return Text('Wut.');
+      //           } else {
+      //             List<Cart>? carts = snapshot.data;
+      //             return ListView.builder(
+      //               itemCount: carts!.length,
+      //               itemBuilder: (context, index) => Padding(
+      //                 padding: EdgeInsets.symmetric(vertical: 10),
+      //                 child: Dismissible(
+      //                   key: Key(carts[index].product_id),
+      //                   direction: DismissDirection.endToStart,
+      //                   onDismissed: (direction) {
+      //                     setState(() {
+      //                       carts.removeAt(index);
+      //                     });
+      //                   },
+      //                   background: Container(
+      //                     padding: EdgeInsets.symmetric(horizontal: 20),
+      //                     decoration: BoxDecoration(
+      //                       color: Color(0xFFFFE6E6),
+      //                       borderRadius: BorderRadius.circular(15),
+      //                     ),
+      //                     child: Row(
+      //                       children: [
+      //                         Spacer(),
+      //                         SvgPicture.asset("assets/icons/Trash.svg"),
+      //                       ],
+      //                     ),
+      //                   ),
+      //                   child: CartCard(cart: carts[index]),
+      //                 ),
+      //               ),
+      //             );
+      //           }
+      //       }
+      //     }),
+
       child: ListView.builder(
         itemCount: widget.carts.length,
         itemBuilder: (context, index) => Padding(
@@ -56,8 +131,8 @@ class _BodyState extends State<Body> {
                             onPressed: () async {
                               _dismissDialog();
                               bool a = await deleteCart(
-                                  BaseSharedPreferences.getString('idUser'),
-                                  widget.carts[index].idProduct);
+                                  BaseSharedPreferences.getString('user_id'),
+                                  widget.carts[index].product_id);
                               if (a == true) {
                                 setState(() {
                                   widget.carts.removeAt(index);

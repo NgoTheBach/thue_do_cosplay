@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:thue_do_cosplay/routes.dart';
-import 'package:thue_do_cosplay/screens/splash/splash_screen.dart';
-import 'package:thue_do_cosplay/theme.dart';
-
+import 'package:shop_app/routes.dart';
+import 'package:shop_app/screens/profile/profile_screen.dart';
+import 'package:shop_app/screens/splash/splash_screen.dart';
+import 'package:shop_app/theme.dart';
 
 void main() {
   initializeDateFormatting('vi_VN');

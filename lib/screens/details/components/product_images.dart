@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/constants.dart';
-import 'package:thue_do_cosplay/models/All.dart';
-import 'package:thue_do_cosplay/size_config.dart';
+import 'package:shop_app/models/All.dart';
+// import 'package:shop_app/screens/details/components/custom_app_bar.dart';
+// import 'package:shop_app/models/Product.dart';
+
+import '../../../constants.dart';
+import '../../../size_config.dart';
 
 class ProductImages extends StatefulWidget {
   const ProductImages({
@@ -27,19 +30,17 @@ class _ProductImagesState extends State<ProductImages> {
           child: AspectRatio(
             aspectRatio: 1,
             child: Hero(
-              tag: widget.product.idProduct,
+              tag: widget.product.product_id,
               child: Image.network(
-                  widget.product.productUrlImage.split('|')[selectedImage]),
+                  widget.product.product_img.split('|')[selectedImage]),
             ),
           ),
         ),
-        SizedBox(
-            height: getProportionateScreenWidth(
-                20)), // Không biết tại sao tác giả lại ẩn nhưng thôi cứ bật lên. :D
+        SizedBox(height: getProportionateScreenWidth(20)), // Không biết tại sao tác giả lại ẩn nhưng thôi cứ bật lên. :D
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ...List.generate(widget.product.productUrlImage.split('|').length,
+            ...List.generate(widget.product.product_img.split('|').length,
                 (index) => buildSmallProductPreview(index)),
           ],
         )
@@ -66,7 +67,7 @@ class _ProductImagesState extends State<ProductImages> {
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.network(widget.product.productUrlImage.split('|')[index]),
+        child: Image.network(widget.product.product_img.split('|')[index]),
       ),
     );
   }

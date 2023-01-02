@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/api/user.dart';
+import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/shared_preferences.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class CheckoutForm extends StatelessWidget {
-  CheckoutForm(
-      //{required this.invoice}
-      );
-  //Invoice invoice;
+  CheckoutForm({required this.invoice});
+  Invoice invoice;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,7 @@ class CheckoutForm extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  //"Chuyển khoản vào một trong những kênh ví điện tử hoặc ngân hàng bên dưới với nội dung:\nWIBUSHOP INV${invoice.invoice_id}\n\nShop sẽ kiểm tra trong ngày cho bạn. Nếu có trục trặc shop sẽ liên hệ qua số điện thoại trên tài khoản/đơn hàng để giải quyết.",
-                  "Chuyển khoản vào một trong những kênh ví điện tử ",
+                  "Chuyển khoản vào một trong những kênh ví điện tử hoặc ngân hàng bên dưới với nội dung:\nWIBUSHOP INV${invoice.invoice_id}\n\nShop sẽ kiểm tra trong ngày cho bạn. Nếu có trục trặc shop sẽ liên hệ qua số điện thoại trên tài khoản/đơn hàng để giải quyết.",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: getProportionateScreenHeight(30)),

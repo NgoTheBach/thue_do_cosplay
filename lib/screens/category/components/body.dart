@@ -1,11 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/screens/category/components/special_offers.dart';
-import 'package:thue_do_cosplay/screens/home/components/home_header.dart';
+import 'package:shop_app/screens/home/components/home_header.dart';
 
 import '../../../size_config.dart';
-
-
+import 'special_offers.dart';
+// import 'popular_product.dart';
 
 class Body extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/size_config.dart';
 import 'package:intl/intl.dart';
-import 'package:thue_do_cosplay/models/All.dart';
-import 'package:thue_do_cosplay/size_config.dart';
 
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);
@@ -51,7 +51,7 @@ OutlineInputBorder outlineInputBorder() {
   );
 }
 
-const String API_URL = 'http://192.168.1.168:3000';
+const String API_URL = 'https://cs-wibu.phatnef.me/api/';
 
 class Fee {
   // Phí vận chuyển
@@ -104,8 +104,8 @@ class Calculate with ChangeNotifier {
     _sum = 0;
     _num = carts.length;
     for (var cart in carts) {
-      _sum += cart.cartProductQuantity * cart.productRentalPrice;
-      _weight += cart.cartProductQuantity * cart.productWeight;
+      _sum += cart.cart_product_quantity * cart.product_rental_price;
+      _weight += cart.cart_product_quantity * cart.product_weight;
     }
     notifyListeners();
   }

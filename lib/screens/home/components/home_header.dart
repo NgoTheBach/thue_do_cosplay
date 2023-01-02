@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/screens/cart/cart_screen.dart';
-import 'package:thue_do_cosplay/screens/home/components/icon_btn_with_counter.dart';
-import 'package:thue_do_cosplay/screens/home/components/search_field.dart';
-import 'package:thue_do_cosplay/screens/invoice/invoice_screen.dart';
+import 'package:shop_app/screens/cart/cart_screen.dart';
+import 'package:shop_app/screens/invoice/invoice_screen.dart';
+
 import '../../../size_config.dart';
+import 'icon_btn_with_counter.dart';
+import 'search_field.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/components/default_button.dart';
-import 'package:thue_do_cosplay/constants.dart';
-import 'package:thue_do_cosplay/screens/splash/components/splash_content.dart';
-import 'package:thue_do_cosplay/screens/sign_in/sign_in_screen.dart';
-import 'package:thue_do_cosplay/shared_preferences.dart';
-import 'package:thue_do_cosplay/size_config.dart';
+import 'package:shop_app/constants.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
+import 'package:shop_app/size_config.dart';
+import 'package:shop_app/shared_preferences.dart';
 
+// This is the best practice
+import '../components/splash_content.dart';
+import '../../../components/default_button.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -17,15 +19,15 @@ class _BodyState extends State<Body> {
   List<Map<String, String>> splashData = [
     {
       "text": "Welcome to app, Let's shop!",
-      "image": "assets/images/splash_1.png"
+      "image": "assets/images/splash_4.png"
     },
     {
       "text": "Welcome to app, Let's shop!",
-      "image": "assets/images/splash_2.png"
+      "image": "assets/images/splash_5.png"
     },
     {
       "text": "Welcome to app, Let's shop!",
-      "image": "assets/images/splash_3.png"
+      "image": "assets/images/splash_6.png"
     },
   ];
   @override
@@ -69,14 +71,14 @@ class _BodyState extends State<Body> {
                     DefaultButton(
                       text: "Tiếp tục",
                       press: () async {
-                        // await BaseSharedPreferences.setString(
-                        //     'skip_splash', 'true');
-                        // final userToken =
-                        //     await BaseSharedPreferences.getString('user_token');
-                        // if (userToken.length > 0)
-                        //   Navigator.pushNamed(context, HomeScreen.routeName);
-                        // else
-                           Navigator.pushNamed(context, SignInScreen.routeName);
+                        await BaseSharedPreferences.setString(
+                            'skip_splash', 'true');
+                        final userToken =
+                            await BaseSharedPreferences.getString('user_token');
+                        if (userToken.length > 0)
+                          Navigator.pushNamed(context, HomeScreen.routeName);
+                        else
+                          Navigator.pushNamed(context, SignInScreen.routeName);
                       },
                     ),
                     Spacer(),

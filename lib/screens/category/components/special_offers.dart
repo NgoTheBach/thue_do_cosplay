@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/screens/home/components/section_title.dart';
+import 'package:shop_app/api/product_type.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/screens/home/components/section_title.dart';
 
 import '../../../size_config.dart';
 
@@ -22,56 +24,53 @@ class SpecialOffers extends StatelessWidget {
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
-        
-//bỏ api chỗ này nha
-
-        // SingleChildScrollView(
-        //   scrollDirection: Axis.horizontal,
-        //   child: FutureBuilder<List<ProductType>?>(
-        //     future: getProductTypes(), // async work
-        //     builder: (BuildContext context,
-        //         AsyncSnapshot<List<ProductType>?> snapshot) {
-        //       switch (snapshot.connectionState) {
-        //         case ConnectionState.waiting:
-        //           return Text('Loading...');
-        //         default:
-        //           if (snapshot.hasError) {
-        //             print('Error: ${snapshot.error}');
-        //             return Text('Wut.');
-        //           } else {
-        //             List<ProductType>? productTypes = snapshot.data;
-        //             // return Text('Result: ${snapshot.data}');
-        //             return Column(
-        //               children: [
-        //                 ...List.generate(
-        //                   productTypes!.length,
-        //                   (index) {
-        //                     // print(productTypes[index].product_type_id.runtimeType);
-        //                     return Column(
-        //                       children: [
-        //                         SpecialOfferCard(
-        //                           image:
-        //                               "assets/images/product_types/${index + 1}.jpg",
-        //                           category:
-        //                               productTypes[index].product_type_name,
-        //                           numOfBrands:
-        //                               productTypes[index].product_type_quantity,
-        //                           press: () {},
-        //                         ),
-        //                         SizedBox(
-        //                             height: getProportionateScreenHeight(10)),
-        //                       ],
-        //                     );
-        //                   },
-        //                 ),
-        //                 // SizedBox(height: getProportionateScreenHeight(30)),
-        //               ],
-        //             );
-        //           }
-        //       }
-        //     },
-        //   ),
-        // ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: FutureBuilder<List<ProductType>?>(
+            future: getProductTypes(), // async work
+            builder: (BuildContext context,
+                AsyncSnapshot<List<ProductType>?> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return Text('Loading...');
+                default:
+                  if (snapshot.hasError) {
+                    print('Error: ${snapshot.error}');
+                    return Text('Wut.');
+                  } else {
+                    List<ProductType>? productTypes = snapshot.data;
+                    // return Text('Result: ${snapshot.data}');
+                    return Column(
+                      children: [
+                        ...List.generate(
+                          productTypes!.length,
+                          (index) {
+                            // print(productTypes[index].product_type_id.runtimeType);
+                            return Column(
+                              children: [
+                                SpecialOfferCard(
+                                  image:
+                                      "assets/images/product_types/${index + 1}.jpg",
+                                  category:
+                                      productTypes[index].product_type_name,
+                                  numOfBrands:
+                                      productTypes[index].product_type_quantity,
+                                  press: () {},
+                                ),
+                                SizedBox(
+                                    height: getProportionateScreenHeight(10)),
+                              ],
+                            );
+                          },
+                        ),
+                        // SizedBox(height: getProportionateScreenHeight(30)),
+                      ],
+                    );
+                  }
+              }
+            },
+          ),
+        ),
       ],
     );
   }

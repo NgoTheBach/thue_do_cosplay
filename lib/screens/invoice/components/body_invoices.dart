@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/screens/invoice/invoice_detail.dart';
-import 'package:thue_do_cosplay/shared_preferences.dart';
-import 'package:thue_do_cosplay/size_config.dart';
+import 'package:shop_app/api/invoice.dart';
+import 'package:shop_app/constants.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/screens/invoice/invoice_details.dart';
+import 'package:shop_app/shared_preferences.dart';
+import 'package:shop_app/size_config.dart';
 
 class BodyInvoices extends StatefulWidget {
   @override
@@ -14,17 +17,17 @@ class _BodyInvoicesState extends State<BodyInvoices> {
   bool _hasNextPage = true;
   bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
-  //List<Invoice> _invoices = [];
+  List<Invoice> _invoices = [];
 
   void _firstLoad() async {
     setState(() {
       _isFirstLoadRunning = true;
     });
     try {
-      // final res = await getInvoices(
-      //     BaseSharedPreferences.getString('user_id'), _page, _limit);
+      final res = await getInvoices(
+          BaseSharedPreferences.getString('user_id'), _page, _limit);
       setState(() {
-        //_invoices = res!;
+        _invoices = res!;
       });
     } catch (err) {
       print(err);
@@ -47,21 +50,21 @@ class _BodyInvoicesState extends State<BodyInvoices> {
       });
       _page += 1; // Increase _page by 1
       try {
-        // final res = await getInvoices(
-        //     BaseSharedPreferences.getString('user_id'), _page, _limit);
+        final res = await getInvoices(
+            BaseSharedPreferences.getString('user_id'), _page, _limit);
 
-        // final List<Invoice> fetchedInvoices = res!;
-        // if (fetchedInvoices.length > 0) {
-        //   setState(() {
-        //     _invoices.addAll(fetchedInvoices);
-        //   });
-        // } else {
-        //   // This means there is no more data
-        //   // and therefore, we will not send another GET request
-        //   setState(() {
-        //     _hasNextPage = false;
-        //   });
-        // }
+        final List<Invoice> fetchedInvoices = res!;
+        if (fetchedInvoices.length > 0) {
+          setState(() {
+            _invoices.addAll(fetchedInvoices);
+          });
+        } else {
+          // This means there is no more data
+          // and therefore, we will not send another GET request
+          setState(() {
+            _hasNextPage = false;
+          });
+        }
       } catch (err) {
         print('Something went wrong!');
       }
@@ -106,23 +109,23 @@ class _BodyInvoicesState extends State<BodyInvoices> {
                     childAspectRatio: 6,
                     crossAxisCount: 1,
                     children: [
-                      // ...List.generate(
-                      //   _invoices.length,
-                      //   (index) {
-                      //     // return ProductCard(product: _invoices[index]);
-                      //     return GestureDetector(
-                      //         onTap: () {
-                      //           // InvoiceDetailsScreen(
-                      //           //     invoiceId: _invoices[index].invoice_id);
-                      //           Navigator.pushNamed(
-                      //               context, InvoiceDetailsScreen.routeName,
-                      //               arguments: InvoiceDetailsArguments(
-                      //                   invoice: _invoices[index]));
-                      //         },
-                      //         child: Text(
-                      //             'Ngày ${unixToDate(int.parse(_invoices[index].invoice_created_at) * 1000)}: mã đơn hàng #INV${_invoices[index].invoice_id}'));
-                      //   },
-                      // ),
+                      ...List.generate(
+                        _invoices.length,
+                        (index) {
+                          // return ProductCard(product: _invoices[index]);
+                          return GestureDetector(
+                              onTap: () {
+                                // InvoiceDetailsScreen(
+                                //     invoiceId: _invoices[index].invoice_id);
+                                Navigator.pushNamed(
+                                    context, InvoiceDetailsScreen.routeName,
+                                    arguments: InvoiceDetailsArguments(
+                                        invoice: _invoices[index]));
+                              },
+                              child: Text(
+                                  'Ngày ${unixToDate(int.parse(_invoices[index].invoice_created_at) * 1000)}: mã đơn hàng #INV${_invoices[index].invoice_id}'));
+                        },
+                      ),
                       // SizedBox(width: getProportionateScreenWidth(20)),
                     ],
                   ),

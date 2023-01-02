@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thue_do_cosplay/api/cart.dart';
-import 'package:thue_do_cosplay/constants.dart';
-import 'package:thue_do_cosplay/models/All.dart';
-import 'package:thue_do_cosplay/shared_preferences.dart';
+import 'package:shop_app/api/cart.dart';
+import 'package:shop_app/constants.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/shared_preferences.dart';
 
 import 'components/body.dart';
 import 'components/check_out_card.dart';
@@ -15,10 +15,42 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return Scaffold(
+    //   appBar: buildAppBar(context),
+    //   body: body,
+    //   bottomNavigationBar: CheckoutCard(),
+    // );
+
+    // return ChangeNotifierProvider<Calculate>(
+    //   create: (context) => Calculate(carts: listCarts),
+    //   child: FutureBuilder<List<Cart>?>(
+    //     future: getCarts(BaseSharedPreferences.getString('user_id')),
+    //     builder: (context, AsyncSnapshot<List<Cart>?> snapshot) {
+    //       switch (snapshot.connectionState) {
+    //         case ConnectionState.waiting:
+    //           return Text('Loading...');
+    //         default:
+    //           if (snapshot.hasError) {
+    //             print('Error: ${snapshot.error}');
+    //             return Text('Wut.');
+    //           } else {
+    //             listCarts = snapshot.data!;
+    //             Provider.of<Calculate>(context, listen: false).update();
+    //             return Scaffold(
+    //               appBar: buildAppBar(context),
+    //               body: Body(carts: listCarts),
+    //               bottomNavigationBar: CheckoutCard(),
+    //             );
+    //           }
+    //       }
+    //     },
+    //   ),
+    // );
+
     return ChangeNotifierProvider<Calculate>(
       create: (context) => Calculate(carts: listCarts),
       child: FutureBuilder<List<Cart>?>(
-        future: getCarts(BaseSharedPreferences.getString('idUser')),
+        future: getCarts(BaseSharedPreferences.getString('user_id')),
         builder: (context, AsyncSnapshot<List<Cart>?> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
@@ -28,7 +60,7 @@ class CartScreen extends StatelessWidget {
               );
             default:
               if (snapshot.hasError) {
-                print('Error here: ${snapshot.error}');
+                print('Error: ${snapshot.error}');
                 // return Text('Wut.');
                 return Scaffold(
                   appBar: buildAppBar(context),

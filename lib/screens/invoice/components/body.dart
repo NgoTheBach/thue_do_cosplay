@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/api/cart.dart';
+import 'package:shop_app/constants.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/shared_preferences.dart';
 
 import '../../../size_config.dart';
 import 'cart_card.dart';
 
 class Body extends StatefulWidget {
-  Body({
-    Key? key,
-    //required this.invoiceDetails
-  }) : super(key: key);
+  Body({Key? key, required this.invoiceDetails}) : super(key: key);
 
-  //List<InvoiceDetails> invoiceDetails;
+  List<InvoiceDetails> invoiceDetails;
 
   @override
   _BodyState createState() => _BodyState();
@@ -24,7 +25,7 @@ class _BodyState extends State<Body> {
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: ListView.builder(
-        itemCount: 3, //widget.invoiceDetails.length,
+        itemCount: widget.invoiceDetails.length,
         itemBuilder: (context, index) => Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: ClipRect(
@@ -48,9 +49,7 @@ class _BodyState extends State<Body> {
                 //   ],
                 // ),
               ),
-              child: CartCard(
-                  // cart: widget.invoiceDetails[index]
-                  ),
+              child: CartCard(cart: widget.invoiceDetails[index]),
             ),
           ),
         ),

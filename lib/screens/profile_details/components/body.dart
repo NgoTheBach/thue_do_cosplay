@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/constants.dart';
-import 'package:thue_do_cosplay/screens/profile_details/components/profile_details_form.dart';
-import 'package:thue_do_cosplay/size_config.dart';
+import 'package:shop_app/constants.dart';
+import 'package:shop_app/size_config.dart';
+
+import 'profile_details_form.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -22,7 +23,6 @@ class Body extends StatelessWidget {
                 //   textAlign: TextAlign.center,
                 // ),
                 // SizedBox(height: SizeConfig.screenHeight * 0.08),
-                //chỗ này phải coi sửa cái file dưới body nha
                 ProfileDetailsForm(),
                 SizedBox(height: getProportionateScreenHeight(20)),
                 // Text(

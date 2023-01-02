@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/screens/sign_in/components/body.dart';
 
+import 'components/body.dart';
 
 class SignInScreen extends StatelessWidget {
   static String routeName = "/sign_in";

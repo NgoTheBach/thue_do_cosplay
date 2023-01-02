@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/constants.dart';
+import 'package:shop_app/constants.dart';
 
 import '../size_config.dart';
 

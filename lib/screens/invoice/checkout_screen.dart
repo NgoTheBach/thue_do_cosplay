@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/All.dart';
 
 import 'components/checkout_form.dart';
 
@@ -12,9 +13,7 @@ class CheckoutInvoiceScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: buildAppBar(context),
-      body: CheckoutForm(
-          //invoice: agrs.invoice
-          ),
+      body: CheckoutForm(invoice: agrs.invoice),
     );
   }
 
@@ -37,7 +36,7 @@ class CheckoutInvoiceScreen extends StatelessWidget {
 }
 
 class CheckoutInvoiceArguments {
-  //final Invoice invoice;
+  final Invoice invoice;
 
-  //CheckoutInvoiceArguments({required this.invoice});
+  CheckoutInvoiceArguments({required this.invoice});
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/api/cart.dart';
-import 'package:thue_do_cosplay/components/default_button.dart';
-import 'package:thue_do_cosplay/models/All.dart';
-import 'package:thue_do_cosplay/shared_preferences.dart';
-import 'package:thue_do_cosplay/size_config.dart';
+import 'package:shop_app/api/cart.dart';
+import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/shared_preferences.dart';
 // import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/size_config.dart';
 
 import 'color_dots.dart';
 import 'product_description.dart';
@@ -49,8 +49,8 @@ class Body extends StatelessWidget {
                           text: "Thêm vào giỏ hàng",
                           press: () async {
                             bool addToCart = await postCart(
-                                BaseSharedPreferences.getString('idUser'),
-                                product.idProduct,
+                                BaseSharedPreferences.getString('user_id'),
+                                product.product_id,
                                 colorDots.quantity);
                             String noti = '';
                             if (addToCart == true)

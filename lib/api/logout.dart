@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:thue_do_cosplay/shared_preferences.dart';
+import 'package:shop_app/shared_preferences.dart';
 
 Future<bool> logout() async {
   await BaseSharedPreferences.remove('user_id');

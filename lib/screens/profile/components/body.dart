@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/api/logout.dart';
-import 'package:thue_do_cosplay/screens/invoice/invoice_screen.dart';
-import 'package:thue_do_cosplay/screens/profile/components/about.dart';
-import 'package:thue_do_cosplay/screens/profile/components/profile_menu.dart';
-import 'package:thue_do_cosplay/screens/profile/components/profile_pic.dart';
-import 'package:thue_do_cosplay/screens/profile_details/profile_details_screen.dart';
-import 'package:thue_do_cosplay/screens/sign_in/sign_in_screen.dart';
+import 'package:shop_app/api/logout.dart';
+import 'package:shop_app/screens/invoice/invoice_screen.dart';
+import 'package:shop_app/screens/profile/components/about.dart';
+import 'package:shop_app/screens/profile_details/profile_details_screen.dart';
+import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
+
+import 'profile_menu.dart';
+import 'profile_pic.dart';
 
 class Body extends StatelessWidget {
   @override

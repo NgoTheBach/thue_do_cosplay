@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/components/custom_bottom_nav_bar.dart';
-import 'package:thue_do_cosplay/enums.dart';
-import 'package:thue_do_cosplay/screens/invoice/components/body_invoices.dart';
+import 'package:shop_app/components/coustom_bottom_nav_bar.dart';
+import 'package:shop_app/enums.dart';
+import 'package:shop_app/screens/invoice/components/body_invoices.dart';
 
 class InvoiceScreen extends StatelessWidget {
   static String routeName = "/invoice";

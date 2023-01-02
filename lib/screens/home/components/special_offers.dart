@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/screens/category/category_screen.dart';
-import 'package:thue_do_cosplay/screens/product/product_screen.dart';
+import 'package:shop_app/api/product_type.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/screens/category/category_screen.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
@@ -19,86 +20,72 @@ class SpecialOffers extends StatelessWidget {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
             title: "Danh mục",
-            press: () {},
-            seeMore: false,
+            press: () {
+              Navigator.pushNamed(context, CategoryScreen.routeName);
+            },
+            seeMore: true,
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SpecialOfferCard(
-                image: "assets/images/Image Banner 4.jpg",
-                category: "Trang phục",
-                numOfBrands: 18,
-                press: () {
-                  Navigator.pushNamed(context, ProductScreen.routeName,
-                      arguments: ProductArguments(keyword: ''));
-                },
-              ),
-              SpecialOfferCard(
-                image: "assets/images/Image Banner 6.jpg",
-                category: "Wig",
-                numOfBrands: 24,
-                press: () {
-                  Navigator.pushNamed(context, ProductScreen.routeName,
-                      arguments: ProductArguments(keyword: ''));
-                },
-              ),
-              SpecialOfferCard(
-                image: "assets/images/Image Banner 5.jpg",
-                category: "Phụ kiện",
-                numOfBrands: 24,
-                press: () {
-                  Navigator.pushNamed(context, ProductScreen.routeName,
-                      arguments: ProductArguments(keyword: ''));
-                },
-              ),
-              SizedBox(width: getProportionateScreenWidth(20)),
-            ],
+          // child: Row(
+          //   children: [
+          //     SpecialOfferCard(
+          //       image: "assets/images/Image Banner 2.png",
+          //       category: "Smartphone",
+          //       numOfBrands: 18,
+          //       press: () {},
+          //     ),
+          //     SpecialOfferCard(
+          //       image: "assets/images/Image Banner 3.png",
+          //       category: "Fashion",
+          //       numOfBrands: 24,
+          //       press: () {},
+          //     ),
+          //     SizedBox(width: getProportionateScreenWidth(20)),
+          //   ],
+          // ),
+          child: FutureBuilder<List<ProductType>?>(
+            future: getProductTypes(), // async work
+            builder: (BuildContext context,
+                AsyncSnapshot<List<ProductType>?> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return Text('Loading...');
+                default:
+                  if (snapshot.hasError) {
+                    print('Error: ${snapshot.error}');
+                    return Text('Wut.');
+                  } else {
+                    List<ProductType>? productTypes = snapshot.data;
+                    // return Text('Result: ${snapshot.data}');
+                    return Row(
+                      children: [
+                        ...List.generate(
+                          productTypes!.length,
+                          (index) {
+                            // print(productTypes[index].product_type_id.runtimeType);
+                            return SpecialOfferCard(
+                              image:
+                                  "assets/images/product_types/${index + 1}.jpg",
+                              category: productTypes[index].product_type_name,
+                              numOfBrands:
+                                  productTypes[index].product_type_quantity,
+                              press: () {},
+                            );
+                          },
+                        ),
+                        SizedBox(width: getProportionateScreenWidth(20)),
+                      ],
+                    );
+                  }
+              }
+            },
           ),
-          // child: FutureBuilder<List<ProductType>?>(
-          //   future: getProductTypes(), // async work
-          //   builder: (BuildContext context,
-          //       AsyncSnapshot<List<ProductType>?> snapshot) {
-          //     switch (snapshot.connectionState) {
-          //       case ConnectionState.waiting:
-          //         return Text('Loading...');
-          //       default:
-          //         if (snapshot.hasError) {
-          //           print('Error: ${snapshot.error}');
-          //           return Text('Wut.');
-          //         } else {
-          //           List<ProductType>? productTypes = snapshot.data;
-          //           // return Text('Result: ${snapshot.data}');
-          //           return Row(
-          //             children: [
-          //               ...List.generate(
-          //                 productTypes!.length,
-          //                 (index) {
-          //                   // print(productTypes[index].product_type_id.runtimeType);
-          //                   return SpecialOfferCard(
-          //                     image:
-          //                         "assets/images/product_types/${index + 1}.jpg",
-          //                     category: productTypes[index].product_type_name,
-          //                     numOfBrands:
-          //                         productTypes[index].product_type_quantity,
-          //                     press: () {},
-          //                   );
-          //                 },
-          //               ),
-          //               SizedBox(width: getProportionateScreenWidth(20)),
-          //             ],
-          //           );
-          //        }
-          //    }
-          // },
         ),
       ],
     );
-
-    //);
   }
 }
 

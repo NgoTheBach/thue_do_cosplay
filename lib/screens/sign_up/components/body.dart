@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/constants.dart';
-import 'package:thue_do_cosplay/screens/sign_up/components/sign_up_form.dart';
-import 'package:thue_do_cosplay/size_config.dart';
+import 'package:shop_app/components/socal_card.dart';
+import 'package:shop_app/constants.dart';
+import 'package:shop_app/size_config.dart';
 
+import 'sign_up_form.dart';
 
 class Body extends StatelessWidget {
   @override

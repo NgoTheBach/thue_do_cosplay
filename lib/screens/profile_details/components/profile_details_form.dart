@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/api/user.dart';
-import 'package:thue_do_cosplay/components/default_button.dart';
-import 'package:thue_do_cosplay/constants.dart';
-import 'package:thue_do_cosplay/helper/keyboard.dart';
-import 'package:thue_do_cosplay/models/All.dart';
-import 'package:thue_do_cosplay/screens/complete_profile/complete_profile_screen.dart';
-import 'package:thue_do_cosplay/shared_preferences.dart';
-import 'package:thue_do_cosplay/size_config.dart';
+import 'package:shop_app/api/register.dart';
+import 'package:shop_app/api/user.dart';
+import 'package:shop_app/components/custom_surfix_icon.dart';
+import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/helper/keyboard.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
+import 'package:shop_app/shared_preferences.dart';
+
+import '../../../constants.dart';
+import '../../../size_config.dart';
 
 class ProfileDetailsForm extends StatefulWidget {
-  String? firstname;
-  String? lastname;
+  String? fullname;
   String? email;
-  String? password;
   String? phoneNumber;
   String? address;
   String? bankAccountNumber;
   String? bankName;
 
-  TextEditingController firstNameText = TextEditingController();
-  TextEditingController lastNameText = TextEditingController();
+  TextEditingController fullnameText = TextEditingController();
   TextEditingController emailText = TextEditingController();
   TextEditingController passwordText = TextEditingController();
   TextEditingController phoneNumberText = TextEditingController();
@@ -53,7 +55,7 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<User?>(
-        future: getUser(BaseSharedPreferences.getString('idUser')),
+        future: getUser(BaseSharedPreferences.getString('user_id')),
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
@@ -79,32 +81,33 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
                               key: _formKey,
                               child: Column(
                                 children: [
-                                  buildFirstnameFormField(user?.firstName),
+                                  buildFullnameFormField(user?.user_fullname),
                                   SizedBox(
                                       height: getProportionateScreenHeight(30)),
-                                  buildLastnameFormField(user?.lastName),
+                                  buildEmailFormField(user?.user_email),
                                   SizedBox(
                                       height: getProportionateScreenHeight(30)),
-                                  buildEmailFormField(user?.email),
+                                  buildPhoneNumberFormField(
+                                      user?.user_phone_number),
                                   SizedBox(
                                       height: getProportionateScreenHeight(30)),
-                                  buildPasswordFormField(''),
+                                  buildAddressFormField(user?.user_address),
                                   SizedBox(
                                       height: getProportionateScreenHeight(30)),
-                                  buildPhoneNumberFormField(user?.phoneNumber),
+                                  Text(
+                                    "Thông tin ngân hàng được dùng để HOÀN LẠI phí đảm bảo tài sản",
+                                    textAlign: TextAlign.center,
+                                  ),
                                   SizedBox(
                                       height: getProportionateScreenHeight(30)),
-                                  buildAddressFormField(user?.address),
+                                  buildBankAccountNumberFormField(
+                                      user?.user_bank_account_number),
                                   SizedBox(
                                       height: getProportionateScreenHeight(30)),
-                                  // Text(
-                                  //   "Thông tin ngân hàng được dùng để HOÀN LẠI phí đảm bảo tài sản",
-                                  //   textAlign: TextAlign.center,
-                                  // ),
-                                  // SizedBox(
-                                  //     height: getProportionateScreenHeight(30)),
-                                  // SizedBox(
-                                  //     height: getProportionateScreenHeight(40)),
+                                  buildBankNameFormField(user?.user_bank_name),
+                                  FormError(errors: errors),
+                                  SizedBox(
+                                      height: getProportionateScreenHeight(40)),
                                   DefaultButton(
                                     text: "Lưu",
                                     press: () async {
@@ -112,16 +115,15 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
                                         _formKey.currentState!.save();
 
                                         KeyboardUtil.hideKeyboard(context);
-
                                         bool? success = await updateUser(
                                           BaseSharedPreferences.getString(
-                                              'idUser'),
-                                          widget.firstNameText.text,
-                                          widget.lastNameText.text,
+                                              'user_id'),
+                                          widget.fullnameText.text,
                                           widget.emailText.text,
                                           widget.phoneNumberText.text,
                                           widget.addressText.text,
-                                          widget.passwordText.text,
+                                          widget.bankAccountNumberText.text,
+                                          widget.bankNameText.text,
                                         );
                                         if (success == true) {
                                           _dismissDialog() {
@@ -154,8 +156,7 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
                                               error:
                                                   "Không thể cập nhật thông tin.\nvui lòng thử lại!");
                                         // if all are valid then go to success screen
-                                        // Navigator.pushNamed(context,
-                                        //     CompleteProfileScreen.routeName);
+                                        // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
                                       }
                                     },
                                   ),
@@ -172,6 +173,88 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
               }
           }
         });
+
+    // return Form(
+    //   key: _formKey,
+    //   child: Column(
+    //     children: [
+    //       SizedBox(height: getProportionateScreenHeight(30)),
+    //       buildFullnameFormField(),
+    //       SizedBox(height: getProportionateScreenHeight(30)),
+    //       buildEmailFormField(),
+    //       SizedBox(height: getProportionateScreenHeight(30)),
+    //       buildPasswordFormField(),
+    //       SizedBox(height: getProportionateScreenHeight(30)),
+    //       buildConformPassFormField(),
+    //       FormError(errors: errors),
+    //       SizedBox(height: getProportionateScreenHeight(40)),
+    //       // DefaultButton(
+    //       //   text: "Tiếp tục",
+    //       //   press: () async {
+    //       //     if (_formKey.currentState!.validate()) {
+    //       //       _formKey.currentState!.save();
+
+    //       //       KeyboardUtil.hideKeyboard(context);
+    //       //       // if all are valid then go to success screen
+    //       //       // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+    //       //     }
+    //       //   },
+    //       // ),
+    //     ],
+    //   ),
+    // );
+  }
+
+  TextFormField buildBankNameFormField(String? text) {
+    widget.bankNameText.text = text ?? '';
+    return TextFormField(
+      controller: widget.bankNameText,
+      keyboardType: TextInputType.text,
+      onSaved: (newValue) => widget.bankName = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: 'Tên ngân hàng không được trống');
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: 'Tên ngân hàng không được trống');
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Tên ngân hàng",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+    );
+  }
+
+  TextFormField buildBankAccountNumberFormField(String? text) {
+    widget.bankAccountNumberText.text = text ?? '';
+    return TextFormField(
+      controller: widget.bankAccountNumberText,
+      keyboardType: TextInputType.text,
+      onSaved: (newValue) => widget.bankAccountNumber = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: 'Số tài khoản không được trống');
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: 'Số tài khoản không được trống');
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Số tài khoản ngân hàng",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+    );
   }
 
   TextFormField buildAddressFormField(String? text) {
@@ -196,6 +279,8 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
       decoration: InputDecoration(
         labelText: "Địa chỉ giao hàng",
         hintText: "Nhập địa chỉ giao hàng",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         // suffixIcon:
         //     CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
@@ -268,62 +353,28 @@ class _ProfileDetailsFormState extends State<ProfileDetailsForm> {
     );
   }
 
-  TextFormField buildPasswordFormField(String? text) {
-    widget.passwordText.text = text ?? '';
+  TextFormField buildFullnameFormField(String? text) {
+    widget.fullnameText.text = text ?? '';
     return TextFormField(
-      controller: widget.passwordText,
+      controller: widget.fullnameText,
       keyboardType: TextInputType.text,
-      onSaved: (newValue) => widget.password = newValue,
+      onSaved: (newValue) => widget.fullname = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: kPassNullError);
+          removeError(error: kNamelNullError);
         }
         return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kPassNullError);
+          addError(error: kNamelNullError);
           return "";
         }
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Mật khẩu",
-        hintText: "Nhập mật khẩu",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
-      ),
-    );
-  }
-
-  TextFormField buildFirstnameFormField(String? text) {
-    widget.firstNameText.text = text ?? '';
-    return TextFormField(
-      controller: widget.firstNameText,
-      keyboardType: TextInputType.text,
-      onSaved: (newValue) => widget.firstname = newValue,
-      decoration: InputDecoration(
-        labelText: "Tên",
-        hintText: "Nhập tên của bạn",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
-    );
-  }
-
-  TextFormField buildLastnameFormField(String? text) {
-    widget.lastNameText.text = text ?? '';
-    return TextFormField(
-      controller: widget.lastNameText,
-      keyboardType: TextInputType.text,
-      onSaved: (newValue) => widget.lastname = newValue,
-      decoration: InputDecoration(
-        labelText: "Họ",
-        hintText: "Nhập họ của bạn",
+        labelText: "Họ tên",
+        hintText: "Nhập họ tên của bạn",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

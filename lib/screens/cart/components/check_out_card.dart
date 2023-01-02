@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:thue_do_cosplay/components/default_button.dart';
-import 'package:thue_do_cosplay/screens/cart/checkout_screen.dart';
-import 'package:thue_do_cosplay/screens/home/home_screen.dart';
+import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/screens/cart/cart_screen.dart';
+import 'package:shop_app/screens/cart/checkout_screen.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -71,10 +72,10 @@ class CheckoutCard extends StatelessWidget {
                       return AlertDialog(
                         title: Text('Thông báo'),
                         content: Text(
-                            // 'Tạm tính: ${numberWithDot(context.watch<Calculate>().sum.toString())}đ\n' +
-                            //     'Phí vận chuyển: ${numberWithDot(Fee.transport(context.watch<Calculate>().weight).toString())}đ\n' +
-                            //     'Phí đảm bảo tài sản: ${numberWithDot(Fee.bond(context.watch<Calculate>().sum).toString())}đ\n\n' +
-                            'Xem thêm thông tin tại Website.'),
+                            'Tạm tính: ${numberWithDot(context.watch<Calculate>().sum.toString())}đ\n' +
+                                'Phí vận chuyển: ${numberWithDot(Fee.transport(context.watch<Calculate>().weight).toString())}đ\n' +
+                                'Phí đảm bảo tài sản: ${numberWithDot(Fee.bond(context.watch<Calculate>().sum).toString())}đ\n\n' +
+                                'Xem thêm thông tin tại Website.'),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () {
@@ -97,8 +98,7 @@ class CheckoutCard extends StatelessWidget {
                     children: [
                       TextSpan(
                         text:
-                            "${context.watch<Calculate>().num > 0 ? numberWithDot((context.watch<Calculate>().sum + 
-                            Fee.transport(context.watch<Calculate>().weight) + Fee.bond(context.watch<Calculate>().sum)).toString()) : '0'}đ",
+                            "${context.watch<Calculate>().num > 0 ? numberWithDot((context.watch<Calculate>().sum + Fee.transport(context.watch<Calculate>().weight) + Fee.bond(context.watch<Calculate>().sum)).toString()) : '0'}đ",
                         // '0đ',
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),

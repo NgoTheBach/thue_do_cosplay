@@ -1,17 +1,16 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
-import 'package:thue_do_cosplay/constants.dart';
+import 'package:shop_app/constants.dart';
 
 Future<bool?> fetchRegister(
-    String firstName, String lastName, String email, String password) async {
-  Map<String, dynamic> map = {
-    'firstName': firstName,
-    'lastName': lastName,
-    'email': email,
-    'password': password
-  };
+    String fullname, String email, String password) async {
+  var map = new Map<String, dynamic>();
+  map['fullname'] = fullname;
+  map['email'] = email;
+  map['password'] = password;
   final response = await http.post(
-    Uri.parse(API_URL + '/api/users/create-user'),
+    Uri.parse(API_URL + '?action=register'),
     headers: <String, String>{
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     },
@@ -20,9 +19,11 @@ Future<bool?> fetchRegister(
 
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
-    print(data);
-    return true;
+    return data['success'];
   } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
     return null;
+    // throw Exception('Failed to load info');
   }
 }

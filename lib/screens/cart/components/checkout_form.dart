@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/components/form_error.dart';
-import 'package:thue_do_cosplay/shared_preferences.dart';
+import 'package:shop_app/api/user.dart';
+import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/models/All.dart';
+import 'package:shop_app/shared_preferences.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -29,7 +31,7 @@ class CheckoutForm extends StatefulWidget {
 
 class _CheckoutFormState extends State<CheckoutForm> {
   final List<String?> errors = [];
-  //User? user;
+  User? user;
 
   void addError({String? error}) {
     if (!errors.contains(error))
@@ -47,79 +49,78 @@ class _CheckoutFormState extends State<CheckoutForm> {
 
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder<User?>(
-    //     future: getUser(BaseSharedPreferences.getString('user_id')),
-    //     builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
-    //       switch (snapshot.connectionState) {
-    //         case ConnectionState.waiting:
-    //           return Text('Loading...');
-    //         default:
-    //           if (snapshot.hasError) {
-    //             print('Error: ${snapshot.error}');
-    //             return Text('Wut.');
-    //           } else {
-    //user = snapshot.data;
-    // print(user?.user_phone_number);
-    return SafeArea(
-      child: SizedBox(
-        width: double.infinity,
-        child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
-                Form(
-                  key: widget.formKey,
-                  child: Column(
-                    children: [
-                      Text(
-                        "Xem lại thông tin người đặt hàng",
-                        textAlign: TextAlign.center,
+    return FutureBuilder<User?>(
+        future: getUser(BaseSharedPreferences.getString('user_id')),
+        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Text('Loading...');
+            default:
+              if (snapshot.hasError) {
+                print('Error: ${snapshot.error}');
+                return Text('Wut.');
+              } else {
+                user = snapshot.data;
+                // print(user?.user_phone_number);
+                return SafeArea(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(20)),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(height: SizeConfig.screenHeight * 0.04),
+                            Form(
+                              key: widget.formKey,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Xem lại thông tin người đặt hàng",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                      height: getProportionateScreenHeight(30)),
+                                  // Khung họ tên
+                                  buildFullnameFormField(user?.user_fullname),
+                                  SizedBox(
+                                      height: getProportionateScreenHeight(30)),
+                                  // Khung email
+                                  buildEmailFormField(user?.user_email),
+                                  SizedBox(
+                                      height: getProportionateScreenHeight(30)),
+                                  // Khung sdt
+                                  buildPhoneNumberFormField(
+                                      user?.user_phone_number),
+                                  SizedBox(
+                                      height: getProportionateScreenHeight(30)),
+                                  // Khung ngày thuê
+                                  buildNumRentalDaysFormField('5'),
+                                  SizedBox(
+                                      height: getProportionateScreenHeight(30)),
+                                  // Khung địa chỉ
+                                  buildAddressFormField(user?.user_address),
+                                  SizedBox(
+                                      height: getProportionateScreenHeight(30)),
+                                  // Khung ghi chú
+                                  buildNoteFormField(),
+                                  FormError(errors: errors),
+                                  SizedBox(
+                                      height: getProportionateScreenHeight(40)),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: SizeConfig.screenHeight * 0.08),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: getProportionateScreenHeight(30)),
-                      // Khung họ tên
-                      buildFullnameFormField("username"
-                          //user?.user_fullname
-                          ),
-                      SizedBox(height: getProportionateScreenHeight(30)),
-                      // Khung email
-                      buildEmailFormField("user email"
-                          // user?.user_email
-                          ),
-                      SizedBox(height: getProportionateScreenHeight(30)),
-                      // Khung sdt
-                      buildPhoneNumberFormField("user phone numbeer"
-                          //user?.user_phone_number
-                          ),
-                      SizedBox(height: getProportionateScreenHeight(30)),
-                      // Khung ngày thuê
-                      buildNumRentalDaysFormField('5'),
-                      SizedBox(height: getProportionateScreenHeight(30)),
-                      // Khung địa chỉ
-                      buildAddressFormField("user addrress"
-                          //user?.user_address
-                          ),
-                      SizedBox(height: getProportionateScreenHeight(30)),
-                      // Khung ghi chú
-                      buildNoteFormField(),
-                      FormError(errors: errors),
-                      SizedBox(height: getProportionateScreenHeight(40)),
-                    ],
+                    ),
                   ),
-                ),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-    //}
-    //}
-    //}
-    //);
+                );
+              }
+          }
+        });
 
     // return Form(
     //   key: _formKey,

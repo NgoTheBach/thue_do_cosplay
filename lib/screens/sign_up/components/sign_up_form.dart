@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/api/register.dart';
-import 'package:thue_do_cosplay/components/custom_surfix_icon.dart';
-import 'package:thue_do_cosplay/components/default_button.dart';
-import 'package:thue_do_cosplay/components/form_error.dart';
-import 'package:thue_do_cosplay/helper/keyboard.dart';
-import 'package:thue_do_cosplay/screens/sign_in/sign_in_screen.dart';
+import 'package:shop_app/api/register.dart';
+import 'package:shop_app/components/custom_surfix_icon.dart';
+import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/helper/keyboard.dart';
+import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -16,15 +17,13 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  String? firstName;
-  String? lastName;
+  String? fullname;
   String? email;
   String? password;
-  String? confirm_password;
+  String? conform_password;
   final List<String?> errors = [];
 
-  TextEditingController firstNameText = TextEditingController();
-  TextEditingController lastNameText = TextEditingController();
+  TextEditingController fullnameText = TextEditingController();
   TextEditingController emailText = TextEditingController();
   TextEditingController passwordText = TextEditingController();
 
@@ -48,15 +47,13 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
-          buildFirstnameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildLastnameFormField(),
+          buildFullnameFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildConfirmPassFormField(),
+          buildConformPassFormField(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
@@ -66,8 +63,8 @@ class _SignUpFormState extends State<SignUpForm> {
                 _formKey.currentState!.save();
 
                 KeyboardUtil.hideKeyboard(context);
-                bool? success = await fetchRegister(firstNameText.text,
-                    lastNameText.text, emailText.text, passwordText.text);
+                bool? success = await fetchRegister(
+                    fullnameText.text, emailText.text, passwordText.text);
                 if (success == true) {
                   _dismissDialog() {
                     Navigator.pop(context);
@@ -97,6 +94,8 @@ class _SignUpFormState extends State<SignUpForm> {
                   addError(
                       error:
                           "Đăng ký không thành công!\nCó thể email đã được đăng ký,\nvui lòng thử lại!");
+                // if all are valid then go to success screen
+                // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               }
             },
           ),
@@ -105,17 +104,17 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  TextFormField buildConfirmPassFormField() {
+  TextFormField buildConformPassFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => confirm_password = newValue,
+      onSaved: (newValue) => conform_password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.isNotEmpty && password == confirm_password) {
+        } else if (value.isNotEmpty && password == conform_password) {
           removeError(error: kMatchPassError);
         }
-        confirm_password = value;
+        conform_password = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -206,11 +205,11 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  TextFormField buildLastnameFormField() {
+  TextFormField buildFullnameFormField() {
     return TextFormField(
-      controller: lastNameText,
+      controller: fullnameText,
       keyboardType: TextInputType.name,
-      onSaved: (newValue) => lastName = newValue,
+      onSaved: (newValue) => fullname = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
@@ -225,37 +224,8 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Họ",
-        hintText: "Nhập họ của bạn",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
-    );
-  }
-
-  TextFormField buildFirstnameFormField() {
-    return TextFormField(
-      controller: firstNameText,
-      keyboardType: TextInputType.name,
-      onSaved: (newValue) => firstName = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kNamelNullError);
-        }
-        return null;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          addError(error: kNamelNullError);
-          return "";
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: "Tên",
-        hintText: "Nhập tên của bạn",
+        labelText: "Họ tên",
+        hintText: "Nhập họ tên của bạn",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

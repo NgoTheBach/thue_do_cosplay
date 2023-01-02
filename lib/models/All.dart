@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:ffi';
-
 class Res {
   final String success;
 
@@ -13,158 +11,148 @@ class Res {
 }
 
 class User {
-  late String idUser;
-  late String firstName;
-  late String lastName;
-  late String? address;
-  late String email;
-  late String password;
-  late String? phoneNumber;
-  // final String? user_token;
+  final String user_id;
+  final String user_fullname;
+  final String user_email;
+  final String? user_phone_number;
+  final String? user_address;
+  final String? user_bank_account_number;
+  final String? user_bank_name;
+  final String? user_token;
 
-  User(this.idUser, this.firstName, this.lastName, this.address, this.email,
-      this.password, this.phoneNumber);
+  User(
+      this.user_id,
+      this.user_fullname,
+      this.user_email,
+      this.user_phone_number,
+      this.user_address,
+      this.user_bank_account_number,
+      this.user_bank_name,
+      this.user_token);
   User.fromJson(Map<String, dynamic> json)
-      : idUser = json['idUser'].toString(),
-        firstName = json['firstName'],
-        lastName = json['lastName'],
-        address = json['address'],
-        email = json['email'],
-        password = json['password'],
-        phoneNumber = json['phoneNumber'];
+      : user_id = json['user_id'],
+        user_fullname = json['user_fullname'],
+        user_email = json['user_email'],
+        user_phone_number = json['user_phone_number'],
+        user_address = json['user_address'],
+        user_bank_account_number = json['user_bank_account_number'],
+        user_bank_name = json['user_bank_name'],
+        user_token = json['user_token'];
   Map<String, dynamic> toJson() => {
-        'idUser': idUser,
-        'firstName': firstName,
-        'lastName': lastName,
-        'address': address,
-        'email': email,
-        'password': password,
-        'phoneNumber': phoneNumber,
+        'user_id': user_id,
+        'user_fullname': user_fullname,
+        'user_email': user_email,
+        'user_phone_number': user_phone_number,
+        'user_address': user_address,
+        'user_bank_account_number': user_bank_account_number,
+        'user_bank_name': user_bank_name,
+        'user_token': user_token,
       };
 }
 
 class ProductType {
-  late String idProductType;
-  late String typeName;
-  //final int product_type_quantity;
+  final String product_type_id;
+  final String product_type_name;
+  final int product_type_quantity;
 
   ProductType(
-    this.idProductType,
-    this.typeName,
-    //this.product_type_quantity
-  );
+      this.product_type_id, this.product_type_name, this.product_type_quantity);
   ProductType.fromJson(Map<String, dynamic> json)
-      : idProductType = json['idProductType'],
-        typeName = json['typeName'];
-  //product_type_quantity = int.parse(json['product_type_quantity']);
+      : product_type_id = json['product_type_id'],
+        product_type_name = json['product_type_name'],
+        product_type_quantity = int.parse(json['product_type_quantity']);
   Map<String, dynamic> toJson() => {
-        'idProductType': idProductType,
-        'typeName': typeName,
-        //'product_type_quantity': product_type_quantity,
+        'product_type_id': product_type_id,
+        'product_type_name': product_type_name,
+        'product_type_quantity': product_type_quantity,
       };
 }
 
 class Product {
-  late String idProduct;
-  late String productName;
-  late String productQuantity;
-  late String productUrlImage;
-  late String? idProductType;
-  late String? productSize;
-  late String productRentalPrice;
-  late String? productDescription;
-  late String? typeName;
-  late String productPrice;
-  late String? productWeight;
+  final String product_id;
+  final String product_name;
+  final String? product_type_id;
+  final String? product_type_name;
+  final int? product_price;
+  final int product_rental_price;
+  final String product_img;
+  final int? product_quantity;
+  final String? product_sizes;
+  final int? product_weight;
+  final String? product_description;
 
   Product(
-      this.idProduct,
-      this.productName,
-      this.productQuantity,
-      this.productUrlImage,
-      this.idProductType,
-      this.productSize,
-      this.productRentalPrice,
-      this.productDescription,
-      this.typeName,
-      this.productPrice,
-      this.productWeight);
+      this.product_id,
+      this.product_name,
+      this.product_type_id,
+      this.product_type_name,
+      this.product_price,
+      this.product_rental_price,
+      this.product_img,
+      this.product_quantity,
+      this.product_sizes,
+      this.product_weight,
+      this.product_description);
   Product.fromJson(Map<String, dynamic> json)
-      : idProduct = json['idProduct'].toString(),
-        productName = json['productName'],
-        idProductType = json['idProductType'].toString(),
-        productPrice = json['productPrice'].toString(),
-        productRentalPrice = json['productRentalPrice'].toString(),
-        productUrlImage = json['productUrlImage'].toString(),
-        productQuantity = json['productQuantity'].toString(),
-        productSize = json['productSize'].toString(),
-        productWeight = json['productWeight'].toString(),
-        productDescription = json['productDescription'].toString(),
-        typeName = json['typeName'].toString();
+      : product_id = json['product_id'],
+        product_name = json['product_name'],
+        product_type_id = json['product_type_id'],
+        product_type_name = json['product_type_name'],
+        product_price = int.parse(json['product_price']),
+        product_rental_price = int.parse(json['product_rental_price']),
+        product_img = json['product_img'],
+        product_quantity = int.parse(json['product_quantity']),
+        product_sizes = json['product_sizes'],
+        product_weight = int.parse(json['product_weight']),
+        product_description = json['product_description'];
   Map<String, dynamic> toJson() => {
-        'idProduct': idProduct,
-        'productName': productName,
-        'idProductType': idProductType,
-        'productPrice': productPrice,
-        'productRentalPrice': productRentalPrice,
-        'productUrlImage': productUrlImage,
-        'productQuantity': productQuantity,
-        'idProductSize': productSize,
-        'productWeight': productWeight,
-        'productDescription': productDescription,
-        'typeName': typeName,
+        'product_id': product_id,
+        'product_name': product_name,
+        'product_type_id': product_type_id,
+        'product_type_name': product_type_name,
+        'product_price': product_price,
+        'product_rental_price': product_rental_price,
+        'product_img': product_img,
+        'product_quantity': product_quantity,
+        'product_sizes': product_sizes,
+        'product_weight': product_weight,
+        'product_description': product_description,
       };
 }
 
 class Cart {
-  late String idProduct;
-  late String productName;
-  late String productUrlImage;
-  late String idProductType;
-  late String? productSize;
-  late int productRentalPrice;
-  late String productDescription;
-  late int productPrice;
-  late int productQuantity;
-  late int productWeight;
-  late int cartProductQuantity;
-  // p.idProduct, p.productName,p.productRentalPrice, p.productUrlImage, p.productQuantity, p.productWeight, c.cartProductQuantity from cart as c, product as p where idUser = ? and c.idProduct = p.idProduct
+  final String product_id;
+  final String product_name;
+  final int product_rental_price;
+  final String product_img;
+  final int product_quantity;
+  final int product_weight;
+  final int cart_product_quantity;
+
   Cart(
-      this.idProduct,
-      this.productName,
-      this.productUrlImage,
-      this.idProductType,
-      this.productSize,
-      this.productDescription,
-      this.productPrice,
-      this.productRentalPrice,
-      this.productQuantity,
-      this.productWeight,
-      this.cartProductQuantity);
+      this.product_id,
+      this.product_name,
+      this.product_rental_price,
+      this.product_img,
+      this.product_quantity,
+      this.product_weight,
+      this.cart_product_quantity);
   Cart.fromJson(Map<String, dynamic> json)
-      : idProduct = json['idProduct'].toString(),
-        productName = json['productName'],
-        productQuantity = json['productQuantity'],
-        productUrlImage = json['productUrlImage'],
-        idProductType = json['idProductType'].toString(),
-        productSize = json['productSize'],
-        productRentalPrice = json['productRentalPrice'],
-        productDescription = json['productDescription'],
-        productPrice = (json['productPrice']),
-        productWeight = (json['productWeight']),
-        cartProductQuantity = (json['cartProductQuantity']);
+      : product_id = json['product_id'],
+        product_name = json['product_name'],
+        product_rental_price = int.parse(json['product_rental_price']),
+        product_img = json['product_img'],
+        product_quantity = int.parse(json['product_quantity']),
+        product_weight = int.parse(json['product_weight']),
+        cart_product_quantity = int.parse(json['cart_product_quantity']);
   Map<String, dynamic> toJson() => {
-        'idProduct': idProduct,
-        'productName': productName,
-        'productQuantity': productQuantity,
-        'productUrlImage': productUrlImage,
-        'idProductType': idProductType,
-        'productSize': productSize,
-        'productRentalPrice': productRentalPrice,
-        'productDescription': productDescription,
-        'productPrice': productPrice,
-        'productWeight': productWeight,
-        'cartProductQuantity': cartProductQuantity,
+        'product_id': product_id,
+        'product_name': product_name,
+        'product_rental_price': product_rental_price,
+        'product_img': product_img,
+        'product_quantity': product_quantity,
+        'product_weight': product_weight,
+        'cart_product_quantity': cart_product_quantity,
       };
 }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:thue_do_cosplay/components/rounded_icon_btn.dart';
-import 'package:thue_do_cosplay/models/All.dart';
+import 'package:shop_app/components/rounded_icon_btn.dart';
+import 'package:shop_app/models/All.dart';
 // import 'package:shop_app/models/Product.dart';
 
 import '../../../constants.dart';
@@ -23,7 +23,7 @@ class _ColorDotsState extends State<ColorDots> {
   @override
   void initState() {
     super.initState();
-    _maxValue = int.parse(widget.product.productQuantity);
+    _maxValue = widget.product.product_quantity;
     if (_maxValue == null)
       maxValue = 0;
     else
